@@ -1,0 +1,1 @@
+declare module '@7urtle/lambda';

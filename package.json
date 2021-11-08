@@ -1,0 +1,59 @@
+{
+  "name": "didauth",
+  "version": "1.0.0",
+  "description": "DID Authentication Library.",
+  "main": "dist/didauth.min.js",
+  "module": "src/index.js",
+  "files": [
+    "dist/*",
+    "src/*",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build-library": "webpack --progress --mode production",
+    "build-types": "jsdoc -t node_modules/tsd-jsdoc/dist -r src -d ./dist",
+    "build": "npm run build-library && npm run build-types",
+    "test": "jest --setupFiles dotenv/config",
+    "unit": "jest --coverage=false unit/[a-z]+.test.js",
+    "integration": "jest --coverage=false integration/[a-z]+.test.js --setupFiles dotenv/config",
+    "maintain": "npm install & npm update && npm audit fix --force && npm test && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MeetMartin/didauth.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "functional"
+  ],
+  "author": "Martin Novak <martin@meet-martin.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MeetMartin/didauth/issues"
+  },
+  "homepage": "",
+  "devDependencies": {
+    "@7urtle/lambda": "^1.3.8",
+    "@babel/core": "^7.16.0",
+    "@babel/plugin-proposal-throw-expressions": "^7.16.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/runtime": "^7.16.0",
+    "@types/axios": "^0.14.0",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.11.6",
+    "axios": "^0.24.0",
+    "babel-jest": "^27.3.1",
+    "babel-loader": "^8.2.3",
+    "dotenv": "^10.0.0",
+    "jest": "^27.3.1",
+    "jsdoc": "^3.6.7",
+    "tsd-jsdoc": "^2.5.0",
+    "typescript": "^4.4.4",
+    "webpack": "^5.62.1",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.4.0"
+  }
+}
