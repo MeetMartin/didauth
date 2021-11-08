@@ -6,13 +6,13 @@ import axios from 'axios';
 import { formatError } from './utils';
 
 /**
-* @typedef {object} AccessTokenRequest
+* @typedef {object} RequestAccessTokenPayload
 * @property {string} clientId
 * @property {string} clientSecret
 */
 
 /**
- * @param {AccessTokenRequest} payload
+ * @param {RequestAccessTokenPayload} payload
  * @returns {AsyncEffect}
  */
 const requestAccessToken = payload =>
@@ -32,7 +32,7 @@ const requestAccessToken = payload =>
                 "grant_type": "client_credentials"
             }
         )
-        .then(response => resolve(response))
+        .then(resolve)
         .catch(error => reject(`Requesting MATTR Acccess Token: ${formatError(error)}`))
     );
     

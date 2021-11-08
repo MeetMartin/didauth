@@ -6,38 +6,35 @@ test('requestAccessToken returns AsyncEffect', () => {
     expect(requestAccessToken({clientId: 'id', clientSecret: 'secret'}).inspect().startsWith('AsyncEffect')).toBe(true);
 });
 
-test('requestAccessToken called with no input returns error', done => {
+test('requestAccessToken called with no input returns error', async () => {
     // @ts-ignore
-    requestAccessToken()
+    await requestAccessToken()
     .trigger
     (error => {
         expect(error).toBe('requestAccessToken payload is Nothing.');
-        done();
         return true;
     })
     (result => fail(`This should not resolve with result ${result}`))
 });
 
-test('requestAccessToken called with payload without clientId returns error', done => {
+test('requestAccessToken called with payload without clientId returns error', async () => {
     // @ts-ignore
-    requestAccessToken({clientSecret: 'secret'})
+    await requestAccessToken({clientSecret: 'secret'})
     .trigger
     (error => {
         expect(error).toBe('requestAccessToken payload.clientId is Nothing.');
-        done();
         return true;
     })
     (result => fail(`This should not resolve with result ${result}`))
 });
 
 
-test('requestAccessToken called with payload without clientSecret returns error', done => {
+test('requestAccessToken called with payload without clientSecret returns error', async () => {
     // @ts-ignore
-    requestAccessToken({clientId: 'id'})
+    await requestAccessToken({clientId: 'id'})
     .trigger
     (error => {
         expect(error).toBe('requestAccessToken payload.clientSecret is Nothing.');
-        done();
         return true;
     })
     (result => fail(`This should not resolve with result ${result}`))

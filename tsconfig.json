@@ -21,6 +21,7 @@
         ]
     },
     "include": [
-        "src/**/*.ts"
-, "src/index.js", "src/effects/AccessToken.js", "src/effects/utils.js"    ]
+        "src/**/*.js",
+        "src/types.d.ts"
+    ]
 }
