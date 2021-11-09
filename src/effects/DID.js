@@ -16,7 +16,7 @@ import { formatError } from '../utils';
  * 
  * @pure
  * @param {ReadDIDPayload} payload
- * @returns {any}
+ * @returns {AsyncEffect}
  */
 const readDID = payload =>
     AsyncEffect

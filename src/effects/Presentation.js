@@ -18,7 +18,7 @@ import { formatError } from '../utils';
 /**
  * 
  * @param {CreatePresentationRequestPayload} payload 
- * @returns {any}
+ * @returns {AsyncEffect}
  */
 const createPresentationRequest = payload =>
     AsyncEffect

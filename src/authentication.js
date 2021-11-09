@@ -1,6 +1,6 @@
 // @ts-check
 
-import { map, flatMap, compose, mergeEithers, eitherToAsyncEffect, mergeAsyncEffects } from '@7urtle/lambda';
+import { map, flatMap, compose, mergeEithers, eitherToAsyncEffect, mergeAsyncEffects, Either, AsyncEffect } from '@7urtle/lambda';
 
 import { requestAccessToken } from './effects/AccessToken';
 import { readDID } from './effects/DID';
@@ -21,7 +21,7 @@ import { validatePayloadKey } from './utils';
 /**
  * @pure
  * @param {AuthenticationPayload} payload 
- * @returns {any} 
+ * @returns {Either} 
  */
 const validatePayload = payload =>
     (validate =>
@@ -49,7 +49,7 @@ const validatePayload = payload =>
 /**
  * @pure
  * @param {FullAuthenticationRequest} request 
- * @returns {any}
+ * @returns {AsyncEffect}
  */
 const getPresentationRequestAndDID = request =>
     mergeAsyncEffects(
@@ -60,7 +60,7 @@ const getPresentationRequestAndDID = request =>
 /**
  * @pure
  * @param {FullAuthenticationRequest} request 
- * @returns {any}
+ * @returns {AsyncEffect}
  */
 const getJWS = request =>
     compose(
@@ -71,7 +71,7 @@ const getJWS = request =>
 /**
  * @pure
  * @param {AuthenticationPayload} payload 
- * @returns {any}
+ * @returns {AsyncEffect}
  */
 const authentication = payload =>
     compose(
