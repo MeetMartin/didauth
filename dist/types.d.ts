@@ -10,7 +10,7 @@ declare type AuthenticationPayload = {
 
 declare function validatePayload(payload: AuthenticationPayload): any;
 
-declare type PresentationRequestAndDIDPayload = {
+declare type FullAuthenticationRequest = {
     tenant: string;
     accessToken: string;
     did: string;
@@ -19,7 +19,9 @@ declare type PresentationRequestAndDIDPayload = {
     presentationCallbackURL: string;
 };
 
-declare function getPresentationRequestAndDID(payload: PresentationRequestAndDIDPayload): any;
+declare function getPresentationRequestAndDID(request: FullAuthenticationRequest): any;
+
+declare function getJWS(request: FullAuthenticationRequest): any;
 
 declare function authentication(payload: AuthenticationPayload): any;
 
