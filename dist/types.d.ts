@@ -61,6 +61,8 @@ into an error string.
  */
 declare function formatError(error: MATTRError): string;
 
+declare type validatePayloadKeyHOF = (key: string) => any;
+
 /**
  * validatePayloadKey validates that key withing a payload is a string that is not Nothing.
 
@@ -74,5 +76,5 @@ On failure it returns Failure with an error message.
 validatePayloadKey({key: 'string'})('fake');
 // => Failure('payload.fake is Nothing or not a string')
  */
-declare function validatePayloadKey(payload: any): (...params: any[]) => any;
+declare function validatePayloadKey(payload: any): validatePayloadKeyHOF;
 

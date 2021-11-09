@@ -15,8 +15,8 @@
     "build-types": "jsdoc -t node_modules/tsd-jsdoc/dist -r src -d ./dist",
     "build": "npm run build-library && npm run build-types",
     "test": "jest --setupFiles dotenv/config",
-    "unit": "jest --coverage=false unit/[a-z]+.test.js",
-    "integration": "jest --coverage=false integration/[a-z]+.test.js --setupFiles dotenv/config",
+    "unit-test": "jest --coverage=false unit/[a-z]+.test.js",
+    "integration-test": "jest --coverage=false integration/[a-z]+.test.js --setupFiles dotenv/config",
     "maintain": "npm install & npm update && npm audit fix --force && npm test && npm run build"
   },
   "repository": {

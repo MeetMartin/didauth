@@ -21,6 +21,13 @@ const formatError = error =>
     `${error?.response?.data?.message ? ` ${error.response.data.message}.` : ''}` +
     `${error?.response?.data?.details ? ` ${deepInspect(error.response.data.details)}.` : ''}`;
 
+
+/**
+ * @callback validatePayloadKeyHOF
+ * @param {string} key
+ * @returns {any}
+ */
+
 /**
  * validatePayloadKey validates that key withing a payload is a string that is not Nothing.
  * 
@@ -30,8 +37,8 @@ const formatError = error =>
  * 
  * @pure
  * @HindleyMilner validatePayloadKey :: Object -> string -> Either
- * @param {Object} payload 
- * @returns {function(string): Either}
+ * @param {any} payload 
+ * @returns {validatePayloadKeyHOF}
  * @example
  * validatePayloadKey({key: 'string'})('key');
  * // => Success({key: 'string'})
