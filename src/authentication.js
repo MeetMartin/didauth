@@ -1,6 +1,6 @@
 // @ts-check
 
-import { map, flatMap, compose, mergeEithers, eitherToAsyncEffect, mergeAsyncEffects, AsyncEffect, Either } from '@7urtle/lambda';
+import { map, flatMap, compose, mergeEithers, eitherToAsyncEffect, mergeAsyncEffects } from '@7urtle/lambda';
 
 import { requestAccessToken } from './effects/AccessToken';
 import { readDID } from './effects/DID';
@@ -37,7 +37,7 @@ const validatePayload = payload =>
     )(validatePayloadKey(payload));
 
 /**
- * @typedef {object} PresentationRequestAndDIDPayload
+ * @typedef {object} FullAuthenticationRequest
  * @property {string} tenant
  * @property {string} accessToken
  * @property {string} did
@@ -48,14 +48,25 @@ const validatePayload = payload =>
 
 /**
  * @pure
- * @param {PresentationRequestAndDIDPayload} payload 
+ * @param {FullAuthenticationRequest} request 
  * @returns {any}
  */
-const getPresentationRequestAndDID = payload =>
+const getPresentationRequestAndDID = request =>
     mergeAsyncEffects(
-        createPresentationRequest(payload),
-        readDID(payload)
+        createPresentationRequest(request),
+        readDID(request)
     );
+
+/**
+ * @pure
+ * @param {FullAuthenticationRequest} request 
+ * @returns {any}
+ */
+const getJWS = request =>
+    compose(
+        map(responses => ({request: responses[0].data?.request, didUrl: responses[1].data?.didDocument?.authentication[0]})),
+        getPresentationRequestAndDID
+    )(request);
 
 /**
  * @pure
@@ -64,8 +75,7 @@ const getPresentationRequestAndDID = payload =>
  */
 const authentication = payload =>
     compose(
-        map(responses => ({request: responses[0].data?.request, didUrl: responses[1].data?.didDocument?.authentication[0]})),
-        flatMap(accessToken => getPresentationRequestAndDID({
+        flatMap(accessToken => getJWS({
             ...payload,
             accessToken: accessToken
         })),
@@ -78,5 +88,6 @@ const authentication = payload =>
 export {
     authentication,
     validatePayload,
-    getPresentationRequestAndDID
+    getPresentationRequestAndDID,
+    getJWS
 };
