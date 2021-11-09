@@ -3,19 +3,32 @@ declare type AuthenticationPayload = {
     clientSecret: string;
     tenant: string;
     did: string;
-    accessToken: string;
+    requestId: string;
+    templateId: string;
+    presentationCallbackURL: string;
 };
 
-declare function validatePayload(payload: any, payload: any): void;
+declare function validatePayload(payload: AuthenticationPayload): any;
 
-declare function authentication(payload: AuthenticationPayload): AsyncEffect;
+declare type PresentationRequestAndDIDPayload = {
+    tenant: string;
+    accessToken: string;
+    did: string;
+    requestId: string;
+    templateId: string;
+    presentationCallbackURL: string;
+};
+
+declare function getPresentationRequestAndDID(payload: PresentationRequestAndDIDPayload): any;
+
+declare function authentication(payload: AuthenticationPayload): any;
 
 declare type RequestAccessTokenPayload = {
     clientId: string;
     clientSecret: string;
 };
 
-declare function requestAccessToken(payload: RequestAccessTokenPayload): AsyncEffect;
+declare function requestAccessToken(payload: RequestAccessTokenPayload): any;
 
 declare type ReadDIDPayload = {
     tenant: string;
@@ -23,7 +36,18 @@ declare type ReadDIDPayload = {
     accessToken: string;
 };
 
-declare function readDID(payload: ReadDIDPayload): AsyncEffect;
+declare function readDID(payload: ReadDIDPayload): any;
+
+declare type CreatePresentationRequestPayload = {
+    tenant: string;
+    accessToken: string;
+    requestId: string;
+    did: string;
+    templateId: string;
+    presentationCallbackURL: string;
+};
+
+declare function createPresentationRequest(payload: CreatePresentationRequestPayload): any;
 
 declare type MATTRError = {
     response: any;

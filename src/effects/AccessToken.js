@@ -15,7 +15,7 @@ import { formatError } from '../utils';
  * 
  * @pure
  * @param {RequestAccessTokenPayload} payload
- * @returns {AsyncEffect}
+ * @returns {any}
  */
 const requestAccessToken = payload =>
     AsyncEffect
