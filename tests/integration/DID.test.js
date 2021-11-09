@@ -16,8 +16,8 @@ const helpReadDID = tenant => did =>
         map(response => response.data.access_token),
         () => requestAccessToken({
             clientId: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET}
-        )
+            clientSecret: process.env.CLIENT_SECRET
+        })
     )();
 
 test('readDID with invalid tenant fails with getaddrinfo error.', async () => {

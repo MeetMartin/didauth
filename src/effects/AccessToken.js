@@ -3,21 +3,22 @@
 import { isNothing, AsyncEffect } from '@7urtle/lambda';
 import axios from 'axios';
 
-import { formatError } from './utils';
+import { formatError } from '../utils';
 
 /**
-* @typedef {object} RequestAccessTokenPayload
-* @property {string} clientId
-* @property {string} clientSecret
-*/
+ * @typedef {object} RequestAccessTokenPayload
+ * @property {string} clientId
+ * @property {string} clientSecret
+ */
 
 /**
+ * 
+ * @pure
  * @param {RequestAccessTokenPayload} payload
  * @returns {AsyncEffect}
  */
 const requestAccessToken = payload =>
     AsyncEffect
-    // @ts-ignore
     .of(reject => resolve =>
         (isNothing(payload) && reject('requestAccessToken payload is Nothing.')) ||
         (isNothing(payload.clientId) && reject('requestAccessToken payload.clientId is Nothing.')) ||
