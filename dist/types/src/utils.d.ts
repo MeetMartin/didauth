@@ -28,7 +28,7 @@ export function formatError(error: MATTRError): string;
  * On failure it returns Failure with an error message.
  *
  * @pure
- * @HindleyMilner validatePayloadKey :: Object -> string -> Either
+ * @HindleyMilner validatePayloadKey :: object -> string -> Either
  * @param {object} payload
  * @returns {function(string): Either}
  * @example

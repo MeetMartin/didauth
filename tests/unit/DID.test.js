@@ -2,8 +2,8 @@
 
 import { readDID } from '../../src/effects/DID'
 
-test('requestAccessToken returns AsyncEffect', () => {
-    expect(readDID({tenant: 'tenant', did: 'did:key:code', accessToken: 'token'}).inspect().startsWith('AsyncEffect')).toBe(true);
+test('requestAccessToken returns AsyncEffect', async () => {
+    expect(await readDID({tenant: 'tenant', did: 'did:key:code', accessToken: 'token'}).inspect().startsWith('AsyncEffect')).toBe(true);
 });
 
 test('readDID called with no input returns error', async () => {

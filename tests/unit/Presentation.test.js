@@ -2,15 +2,15 @@
 
 import { createPresentationRequest } from '../../src/effects/Presentation';
 
-test('createPresentationRequest returns AsyncEffect', () => {
+test('createPresentationRequest returns AsyncEffect', async () => {
     expect(
-        createPresentationRequest({
+        await createPresentationRequest({
             tenant: 'tenant',
             accessToken: 'token',
             requestId: 'id',
             did: 'did:key:code',
             templateId: 'id',
-            presentationCallbackURL: 'url'
+            callbackURL: 'url'
         }).inspect().startsWith('AsyncEffect')
     )
     .toBe(true);
@@ -34,7 +34,7 @@ test('createPresentationRequest called with payload without tenant returns error
         requestId: 'id',
         did: 'did:key:code',
         templateId: 'id',
-        presentationCallbackURL: 'url'
+        callbackURL: 'url'
     })
     .trigger
     (error => {
@@ -51,7 +51,7 @@ test('createPresentationRequest called with payload without accessToken returns 
         requestId: 'id',
         did: 'did:key:code',
         templateId: 'id',
-        presentationCallbackURL: 'url'
+        callbackURL: 'url'
     })
     .trigger
     (error => {
@@ -68,7 +68,7 @@ test('createPresentationRequest called with payload without requestId returns er
         accessToken: 'token',
         did: 'did:key:code',
         templateId: 'id',
-        presentationCallbackURL: 'url'
+        callbackURL: 'url'
     })
     .trigger
     (error => {
@@ -85,7 +85,7 @@ test('createPresentationRequest called with payload without did returns error', 
         accessToken: 'token',
         requestId: 'id',
         templateId: 'id',
-        presentationCallbackURL: 'url'
+        callbackURL: 'url'
     })
     .trigger
     (error => {
@@ -102,7 +102,7 @@ test('createPresentationRequest called with payload without templateId returns e
         accessToken: 'token',
         requestId: 'id',
         did: 'did:key:code',
-        presentationCallbackURL: 'url'
+        callbackURL: 'url'
     })
     .trigger
     (error => {
@@ -112,7 +112,7 @@ test('createPresentationRequest called with payload without templateId returns e
     (result => fail(`This should not resolve with result ${result}`))
 });
 
-test('createPresentationRequest called with payload without presentationCallbackURL returns error', async () => {
+test('createPresentationRequest called with payload without callbackURL returns error', async () => {
     // @ts-ignore
     await createPresentationRequest({
         tenant: 'tenant',
@@ -123,7 +123,7 @@ test('createPresentationRequest called with payload without presentationCallback
     })
     .trigger
     (error => {
-        expect(error).toBe('createPresentationRequest payload.presentationCallbackURL is Nothing.');
+        expect(error).toBe('createPresentationRequest payload.callbackURL is Nothing.');
         return true;
     })
     (result => fail(`This should not resolve with result ${result}`))

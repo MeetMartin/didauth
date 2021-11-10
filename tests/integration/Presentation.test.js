@@ -15,7 +15,7 @@ const helpCreatePresentationRequest = payload =>
             requestId: payload.requestId,
             did: payload.did,
             templateId: payload.templateId,
-            presentationCallbackURL: payload.presentationCallbackURL
+            callbackURL: payload.callbackURL
         })),
         map(response => response.data.access_token),
         () => requestAccessToken({
@@ -31,7 +31,7 @@ test('createPresentationRequest with invalid tenant fails with getaddrinfo error
         requestId: 'id',
         did: 'did:key:code',
         templateId: 'id',
-        presentationCallbackURL: 'url'
+        callbackURL: 'url'
     })
     .trigger
     (error => {
@@ -50,7 +50,7 @@ test('createPresentationRequest with invalid token fails with 401 error.', async
         requestId: 'id',
         did: 'fake',
         templateId: 'id',
-        presentationCallbackURL: 'url'
+        callbackURL: 'url'
     })
     .trigger
     (error => {
@@ -68,7 +68,7 @@ test('createPresentationRequest with invalid inputs fails with 400 error.', asyn
         requestId: uuidv4(),
         did: 'fake',
         templateId: 'fake',
-        presentationCallbackURL: 'fake'
+        callbackURL: 'fake'
     })
     .trigger
     (error => {
@@ -80,13 +80,13 @@ test('createPresentationRequest with invalid inputs fails with 400 error.', asyn
     });
 });
 
-test('createPresentationRequest with valid credentials returns presentation request.', async () => {
+test('createPresentationRequest with valid inputs returns presentation request.', async () => {
     await helpCreatePresentationRequest({
         tenant: process.env.TENANT,
         requestId: uuidv4(),
         did: process.env.VERIFIER_DID,
         templateId: process.env.TEMPLATE_ID,
-        presentationCallbackURL: process.env.PRESENTATION_CALLBACK_URL
+        callbackURL: process.env.CALLBACK_URL
     })
     .trigger
     (error => {

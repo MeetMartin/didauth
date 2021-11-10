@@ -2,8 +2,8 @@
 
 import { requestAccessToken } from '../../src/effects/AccessToken'
 
-test('requestAccessToken returns AsyncEffect', () => {
-    expect(requestAccessToken({clientId: 'id', clientSecret: 'secret'}).inspect().startsWith('AsyncEffect')).toBe(true);
+test('requestAccessToken returns AsyncEffect', async () => {
+    expect(await requestAccessToken({clientId: 'id', clientSecret: 'secret'}).inspect().startsWith('AsyncEffect')).toBe(true);
 });
 
 test('requestAccessToken called with no input returns error', async () => {
