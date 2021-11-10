@@ -1,6 +1,6 @@
 {
   "name": "didauth",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "DID Authentication Library.",
   "main": "dist/didauth.min.js",
   "types": "dist/types/index.d.ts",
