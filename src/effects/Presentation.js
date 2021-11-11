@@ -26,7 +26,7 @@ import { formatError } from '../utils';
  * Uses MATTR platform /v1/presentations/templates.
  * 
  * @pure
- * @HindleyMilner createPresentationRequest :: CreatePresentationRequestPayload -> AsyncEffect
+ * @HindleyMilner createPresentationTemplate :: CreatePresentationTemplatePayload -> AsyncEffect
  * @param {CreatePresentationTemplatePayload} payload 
  * @returns {AsyncEffect}
  */
