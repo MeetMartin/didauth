@@ -50,6 +50,52 @@ const createJWS = payload =>
         .catch(error => reject(`Creating JWS: ${formatError(error)}`))
     );
 
+/**
+ * @typedef {object} CreateJWEPayload
+ * @property {string} tenant MATTR tenant
+ * @property {string} accessToken MATTR platform access token string
+ * @property {string} didUrl authentication key value from DID document
+ * @property {[string]} recipientDids array of recipient DID strings
+ * @property {object} request message to be signed
+ */
+
+/**
+ * createJWE encrypts a payload using a JWM format.
+ * 
+ * Uses MATTR platform /v1/messaging/encrypt.
+ * 
+ * @pure
+ * @HindleyMilner createJWE :: CreateJWEPayload -> AsyncEffect
+ * @param {CreateJWEPayload} payload 
+ * @returns {AsyncEffect}
+ */
+const createJWE = payload =>
+    AsyncEffect
+    .of(reject => resolve =>
+        (isNothing(payload) && reject('createJWE payload is Nothing.')) ||
+        (isNothing(payload.tenant) && reject('createJWE payload.tenant is Nothing.')) ||
+        (isNothing(payload.accessToken) && reject('createJWE payload.accessToken is Nothing.')) ||
+        (isNothing(payload.didUrl) && reject('createJWE payload.didUrl is Nothing.')) ||
+        (isNothing(payload.recipientDids) && reject('createJWE payload.recipientDids is Nothing.')) ||
+        (isNothing(payload.request) && reject('createJWE payload.request is Nothing.')) ||
+        axios.post(
+            `https://${payload.tenant}/v1/messaging/encrypt`,
+            {
+                "senderDidUrl": payload.didUrl,
+                "recipientDidUrls": payload.recipientDids,
+                "payload": payload.request
+            },
+            {
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${payload.accessToken}`
+                }
+            }
+        ).then(resolve).catch(error => reject(`Creating JWE: ${formatError(error)}`))
+    );
+
 export {
+    createJWE,
     createJWS
 };

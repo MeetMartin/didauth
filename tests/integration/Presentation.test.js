@@ -81,7 +81,6 @@ test('createPresentationTemplate with valid inputs returns presentation template
     })
     (response => {
         const templateId = response.data?.id;
-        console.log(response.data);
         expect(isJust(templateId) && isString(templateId)).toBe(true);
         return response;
     });
@@ -100,7 +99,6 @@ test('createPresentationTemplate with valid optional inputs returns presentation
     })
     (response => {
         const templateId = response.data?.id;
-        console.log(response.data);
         expect(isJust(templateId) && isString(templateId)).toBe(true);
         return response;
     });
