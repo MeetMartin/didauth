@@ -1,6 +1,53 @@
 // @ts-check
 
-import { createPresentationRequest } from '../../src/effects/Presentation';
+import { createPresentationTemplate, createPresentationRequest } from '../../src/effects/Presentation';
+
+test('createPresentationTemplate returns AsyncEffect', async () => {
+    expect(
+        await createPresentationTemplate({
+            tenant: 'tenant',
+            accessToken: 'token'
+        }).inspect().startsWith('AsyncEffect')
+    )
+    .toBe(true);
+});
+
+test('createPresentationTemplate called with no input returns error', async () => {
+    // @ts-ignore
+    await createPresentationTemplate()
+    .trigger
+    (error => {
+        expect(error).toBe('createPresentationTemplate payload is Nothing.');
+        return true;
+    })
+    (result => fail(`This should not resolve with result ${result}`))
+});
+
+test('createPresentationTemplate called with payload without tenant returns error', async () => {
+    // @ts-ignore
+    await createPresentationTemplate({
+        accessToken: 'token'
+    })
+    .trigger
+    (error => {
+        expect(error).toBe('createPresentationTemplate payload.tenant is Nothing.');
+        return true;
+    })
+    (result => fail(`This should not resolve with result ${result}`))
+});
+
+test('createPresentationTemplate called with payload without accessToken returns error', async () => {
+    // @ts-ignore
+    await createPresentationTemplate({
+        tenant: 'tenant'
+    })
+    .trigger
+    (error => {
+        expect(error).toBe('createPresentationTemplate payload.accessToken is Nothing.');
+        return true;
+    })
+    (result => fail(`This should not resolve with result ${result}`))
+});
 
 test('createPresentationRequest returns AsyncEffect', async () => {
     expect(
