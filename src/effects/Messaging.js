@@ -92,10 +92,57 @@ const createJWE = payload =>
                     "Authorization": `Bearer ${payload.accessToken}`
                 }
             }
-        ).then(resolve).catch(error => reject(`Creating JWE: ${formatError(error)}`))
+        )
+        .then(resolve)
+        .catch(error => reject(`Creating JWE: ${formatError(error)}`))
+    );
+
+/**
+ * @typedef {object} SendMessagePayload
+ * @property {string} tenant MATTR tenant
+ * @property {string} accessToken MATTR platform access token string
+ * @property {string} recipientDid message recipient DID
+ * @property {object} message JWE message to be sent
+ */
+
+/**
+ * sendMessage sends an encrypted JWM format DIDComm message to a DID service endpoint.
+ * 
+ * Uses MATTR platform /v1/messaging/send.
+ * 
+ * @pure
+ * @HindleyMilner sendMessage :: SendMessagePayload -> AsyncEffect
+ * @param {SendMessagePayload} payload 
+ * @returns {AsyncEffect}
+ */
+const sendMessage = payload =>
+    AsyncEffect
+    .of(reject => resolve =>
+        (isNothing(payload) && reject('sendMessage payload is Nothing.')) ||
+        (isNothing(payload.tenant) && reject('sendMessage payload.tenant is Nothing.')) ||
+        (isNothing(payload.accessToken) && reject('sendMessage payload.accessToken is Nothing.')) ||
+        (isNothing(payload.recipientDid) && reject('sendMessage payload.recipientDid is Nothing.')) ||
+        (isNothing(payload.message) && reject('sendMessage payload.message is Nothing.')) ||
+        axios.post(
+            `https://${payload.tenant}/v1/messaging/send`,
+            {
+                "to": payload.recipientDid,
+                "message": payload.message
+            },
+            {
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${payload.accessToken}`
+                }
+            }
+        )
+        .then(resolve)
+        .catch(error => reject(`Sending Message: ${formatError(error)}`))
     );
 
 export {
     createJWE,
-    createJWS
+    createJWS,
+    sendMessage
 };

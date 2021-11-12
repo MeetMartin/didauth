@@ -1,6 +1,6 @@
 // @ts-check
 
-import { createJWS, createJWE } from '../../src/effects/Messaging';
+import { createJWS, createJWE, sendMessage } from '../../src/effects/Messaging';
 
 test('createJWS returns AsyncEffect', async () => {
     expect(
@@ -184,6 +184,89 @@ test('createJWE called with payload without request returns error', async () => 
     .trigger
     (error => {
         expect(error).toBe('createJWE payload.request is Nothing.');
+        return true;
+    })
+    (result => fail(`This should not resolve with result ${result}`))
+});
+
+test('sendMessage returns AsyncEffect', async () => {
+    expect(
+        await sendMessage({
+            tenant: 'tenant',
+            accessToken: 'token',
+            recipientDid: 'fake',
+            message: { fake: 'fake' }
+        }).inspect().startsWith('AsyncEffect')
+    )
+    .toBe(true);
+});
+
+test('sendMessage called with no input returns error', async () => {
+    // @ts-ignore
+    await sendMessage()
+    .trigger
+    (error => {
+        expect(error).toBe('sendMessage payload is Nothing.');
+        return true;
+    })
+    (result => fail(`This should not resolve with result ${result}`))
+});
+
+test('sendMessage called with payload without tenant returns error', async () => {
+    // @ts-ignore
+    await sendMessage({
+        accessToken: 'token',
+        recipientDid: 'fake',
+        message: { fake: 'fake' }
+    })
+    .trigger
+    (error => {
+        expect(error).toBe('sendMessage payload.tenant is Nothing.');
+        return true;
+    })
+    (result => fail(`This should not resolve with result ${result}`))
+});
+
+test('sendMessage called with payload without accessToken returns error', async () => {
+    // @ts-ignore
+    await sendMessage({
+        tenant: 'tenant',
+        recipientDid: 'fake',
+        message: { fake: 'fake' }
+    })
+    .trigger
+    (error => {
+        expect(error).toBe('sendMessage payload.accessToken is Nothing.');
+        return true;
+    })
+    (result => fail(`This should not resolve with result ${result}`))
+});
+
+test('sendMessage called with payload without recipientDid returns error', async () => {
+    // @ts-ignore
+    await sendMessage({
+        tenant: 'tenant',
+        accessToken: 'token',
+        message: { fake: 'fake' }
+    })
+    .trigger
+    (error => {
+        expect(error).toBe('sendMessage payload.recipientDid is Nothing.');
+        return true;
+    })
+    (result => fail(`This should not resolve with result ${result}`))
+});
+
+test('sendMessage called with payload without message returns error', async () => {
+    // @ts-ignore
+    await sendMessage({
+        tenant: 'tenant',
+        accessToken: 'token',
+        recipientDid: 'fake'
+    })
+    .trigger
+    (error => {
+        expect(error).toBe('sendMessage payload.message is Nothing.');
         return true;
     })
     (result => fail(`This should not resolve with result ${result}`))
