@@ -1,14 +1,15 @@
 // @ts-check
 
-import { authentication, getJWS, getJWSURL } from '../../src/authentication';
+import { pushAuthentication, createPushRequest } from '../../src/pushAuthentication';
 
-test('authentication returns AsyncEffect.', async () => {
+test('pushAuthentication returns AsyncEffect.', async () => {
     expect(
-        await authentication({
+        await pushAuthentication({
             clientId: 'client id',
             clientSecret: 'client secret',
             tenant: 'your-tenant.vii.mattr.global',
             did: 'did:method:code',
+            recipientDid: 'did:method:code',
             requestId: 'your-request-id',
             templateId: 'presentation template id',
             callbackURL: 'https://your-domain.tld/didauth/callback'
@@ -17,22 +18,15 @@ test('authentication returns AsyncEffect.', async () => {
     .toBe(true);
 });
 
-test('getJWS returns AsyncEffect.', () => {
-    expect(getJWS({
+test('createPushRequest returns AsyncEffect.', () => {
+    expect(createPushRequest({
         tenant: 'your-tenant.vii.mattr.global',
         accessToken: 'token',
         did: 'did:method:code',
         requestId: 'your-request-id',
+        recipientDid: 'did:method:code',
         templateId: 'presentation template id',
         callbackURL: 'https://your-domain.tld/didauth/callback'
     }).inspect().startsWith('AsyncEffect'))
     .toBe(true);
-});
-
-test('getJWSURL returns AsyncEffect.', () => {
-    expect(getJWSURL({
-        tenant: 'your-tenant.vii.mattr.global',
-        jws: 'jws'
-    }))
-    .toBe('https://your-tenant.vii.mattr.global/?request=jws');
 });

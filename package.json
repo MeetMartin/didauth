@@ -1,6 +1,6 @@
 {
   "name": "didauth",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "DID Authentication Library.",
   "main": "dist/didauth.min.js",
   "types": "dist/types/src/index.d.ts",
@@ -52,7 +52,7 @@
     "jest": "^27.3.1",
     "typescript": "^4.4.4",
     "uuid": "^8.3.2",
-    "webpack": "^5.63.0",
+    "webpack": "^5.64.0",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.4.0"
   }

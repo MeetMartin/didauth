@@ -1,4 +1,4 @@
-export type AuthenticationPayload = {
+export type PushAuthenticationPayload = {
     /**
      * ID provided as part of MATTR platform onboarding
      */
@@ -12,9 +12,13 @@ export type AuthenticationPayload = {
      */
     tenant: string;
     /**
-     * Verifier DID representing your application
+     * Verifier DID representing your application,
      */
     did: string;
+    /**
+     * User's DID stored by your application
+     */
+    recipientDid: string;
     /**
      * Request ID used by your app to tie together the request and the callback response
      */
@@ -28,7 +32,7 @@ export type AuthenticationPayload = {
      */
     callbackURL: string;
 };
-export type FullAuthenticationPayload = {
+export type FullPushAuthenticationPayload = {
     /**
      * Your MATTR tenant
      */
@@ -38,9 +42,13 @@ export type FullAuthenticationPayload = {
      */
     accessToken: string;
     /**
-     * Verifier DID representing your application
+     * Verifier DID representing your application,
      */
     did: string;
+    /**
+     * User's DID stored by your application
+     */
+    recipientDid: string;
     /**
      * Request ID used by your app to tie together the request and the callback response
      */
@@ -55,8 +63,8 @@ export type FullAuthenticationPayload = {
     callbackURL: string;
 };
 /**
- * authentication creates an authentication request URL for DID Authentication with your MATTR tenant. The resulting
- * URL is intended to be used to redirect the user.
+ * pushAuthentication creates an authentication digital wallet push request for DID Authentication with your MATTR tenant. It uses the recipientDID
+ * stored in your system to find the user's digital wallet and ask them for authentication through a push request on their phone.
  *
  * As a result, MATTR platform calls supplied callback URL with the result that connects to your request by a supplied
  * Request ID.
@@ -64,73 +72,61 @@ export type FullAuthenticationPayload = {
  * We return a monad @7urtle/lambda.AsyncEffect as the output of the function: https://www.7urtle.com/documentation-7urtle-lambda#lambda-AsyncEffect
  *
  * @pure
- * @HindleyMilner authentication :: AuthenticationPayload -> AsyncEffect
- * @param {AuthenticationPayload} payload
+ * @HindleyMilner pushAuthentication :: PushAuthenticationPayload -> AsyncEffect
+ * @param {PushAuthenticationPayload} payload
  * @returns {AsyncEffect}
  * @example
- * import { authentication } from 'didauth';
+ * import { pushAuthentication } from 'didauth';
  *
  * const payload = {
  *     clientId: 'client id',
  *     clientSecret: 'client secret',
  *     tenant: 'your-tenant.vii.mattr.global',
  *     did: 'did:method:code',
+ *     recipientDid: 'did:method:code',
  *     requestId: 'your-request-id',
  *     templateId: 'presentation template id',
  *     callbackURL: 'https://your-domain.tld/didauth/callback'
  * };
  *
- * authentication(payload)
+ * pushAuthentication(payload)
  * .trigger
  * (errors => console.log(errors) || ({
  *     statusCode: 500,
  *     body: 'Internal Server Error'
  * }))
- * (JWSURL => ({
- *     statusCode: 301,
- *     headers: {
- *         locations: JWSURL
- *     }
+ * (() => ({
+ *     statusCode: 204
  * }));
  */
-export function authentication(payload: AuthenticationPayload): any;
+export function pushAuthentication(payload: PushAuthenticationPayload): any;
 /**
- * getJWS creates a JWS URL by signing authentication presentation request for a verifier DID.
- *
- * @pure
- * @HindleyMilner getJWSURL :: FullAuthenticationPayload -> AsyncEffect
- * @param {FullAuthenticationPayload} payload
- * @returns {AsyncEffect}
- */
-export function getJWS(payload: FullAuthenticationPayload): any;
-/**
- * @typedef {object} AuthenticationPayload
+ * @typedef {object} PushAuthenticationPayload
  * @property {string} clientId ID provided as part of MATTR platform onboarding
  * @property {string} clientSecret Secret provided as part of MATTR platform onboarding
  * @property {string} tenant Your MATTR tenant
- * @property {string} did Verifier DID representing your application
+ * @property {string} did Verifier DID representing your application,
+ * @property {string} recipientDid User's DID stored by your application
  * @property {string} requestId Request ID used by your app to tie together the request and the callback response
  * @property {string} templateId Authentication presentation template ID
  * @property {string} callbackURL Callback URL that MATTR platform will call with the request result
  */
 /**
- * @typedef {object} FullAuthenticationPayload
+ * @typedef {object} FullPushAuthenticationPayload
  * @property {string} tenant Your MATTR tenant
  * @property {string} accessToken MATTR platform access token string
- * @property {string} did Verifier DID representing your application
+ * @property {string} did Verifier DID representing your application,
+ * @property {string} recipientDid User's DID stored by your application
  * @property {string} requestId Request ID used by your app to tie together the request and the callback response
  * @property {string} templateId Authentication presentation template ID
  * @property {string} callbackURL Callback URL that MATTR platform will call with the request result
  */
 /**
- * getJWSURL creates JWS url from JWS
+ * createPushRequest creates an authentication that is sent to a digital wallet
  *
  * @pure
- * @HindleyMilner getJWSURL :: {tenant: string, jws: string} -> string
- * @param {{tenant: string, jws: string}} payload
- * @returns {string}
+ * @HindleyMilner createPushRequest :: FullPushAuthenticationPayload -> AsyncEffect
+ * @param {FullPushAuthenticationPayload} payload
+ * @returns {AsyncEffect}
  */
-export function getJWSURL(payload: {
-    tenant: string;
-    jws: string;
-}): string;
+export function createPushRequest(payload: FullPushAuthenticationPayload): any;

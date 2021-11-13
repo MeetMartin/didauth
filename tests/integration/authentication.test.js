@@ -25,3 +25,16 @@ test('authentication returns JWS url when triggered.', async () => {
         ).toBe(true)
     })
 });
+
+test('authentication with ivalid payload triggers validation error.', async () => {
+    // @ts-ignore
+    await authentication({ fake: 'fake' })
+    .trigger
+    (error => {
+        expect(error).toEqual(["payload.clientId is Nothing or not a string.", "payload.clientSecret is Nothing or not a string.", "payload.tenant is Nothing or not a string.", "payload.did is Nothing or not a string.", "payload.requestId is Nothing or not a string.", "payload.templateId is Nothing or not a string.", "payload.callbackURL is Nothing or not a string."]);
+        return error;
+    })
+    (response => {
+        throw new Error(`I should not succeed with response: "${response}"`);
+    })
+});

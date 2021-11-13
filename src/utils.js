@@ -1,6 +1,9 @@
 // @ts-check
 
-import { deepInspect, isNothing, isNotString, Failure, Success, Either } from '@7urtle/lambda';
+import { deepInspect, isNothing, isNotString, Failure, Success, Either, compose, map, mergeEithers, AsyncEffect, mergeAsyncEffects } from '@7urtle/lambda';
+
+import { createPresentationRequest } from './effects/Presentation';
+import { readDID } from './effects/DID';
 
 /**
 * @typedef {object} MATTRError
@@ -44,7 +47,52 @@ const validatePayloadKey = payload => key =>
     ? Failure(`payload.${key} is Nothing or not a string.`)
     : Success(payload);
 
+/**
+ * validatePayload validates payload required keys to ensure their values are strings that are not Nothing. It returns
+ * a Failure with an array of validation error messages or a Success with the original payload.
+ * 
+ * @pure
+ * @HindleyMilner validatePayload :: Array.<string> -> object -> Either
+ * @param {Array.<string>} keys
+ * @returns {function(object): Either} 
+ */
+ const validatePayload = keys => payload => 
+    compose(
+        map(values => values[0]),
+        validate => mergeEithers(
+            ...map(key => validate(key))(keys)
+        )
+    )
+    (validatePayloadKey(payload));
+
+/**
+ * @typedef {object} PresentationRequestAndDIDPayload
+ * @property {string} tenant Your MATTR tenant
+ * @property {string} accessToken MATTR platform access token string
+ * @property {string} did Verifier DID representing your application
+ * @property {string} requestId Request ID used by your app to tie together the request and the callback response
+ * @property {string} templateId Authentication presentation template ID
+ * @property {string} callbackURL Callback URL that MATTR platform will call with the request result
+ */
+
+/**
+ * getPresentationRequestAndDID creates merged AsyncEffect that can create a presentation request
+ * and read DID in parallel.
+ * 
+ * @pure
+ * @HindleyMilner getPresentationRequestAndDID :: FullPushAuthenticationPayload -> AsyncEffect
+ * @param {PresentationRequestAndDIDPayload} payload 
+ * @returns {AsyncEffect}
+ */
+ const getPresentationRequestAndDID = payload =>
+    mergeAsyncEffects(
+        createPresentationRequest(payload),
+        readDID(payload)
+    );
+
 export {
     formatError,
-    validatePayloadKey
+    validatePayloadKey,
+    validatePayload,
+    getPresentationRequestAndDID
 };
