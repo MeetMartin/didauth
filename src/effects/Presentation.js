@@ -63,7 +63,7 @@ const createPresentationTemplate = payload =>
  * @typedef {object} CreatePresentationRequestPayload
  * @property {string} tenant MATTR tenant
  * @property {string} accessToken MATTR platform access token string
- * @property {string} requestId Request ID used by your app to tie together the request and the callback response
+ * @property {string} challengeId Challenge ID used by your app to tie together the request and the callback response
  * @property {string} did verifier DID
  * @property {string} templateId presentation template ID
  * @property {string} callbackURL callback URL that MATTR platform will call with the request result
@@ -86,14 +86,14 @@ const createPresentationRequest = payload =>
         (isNothing(payload) && reject('createPresentationRequest payload is Nothing.')) ||
         (isNothing(payload.tenant) && reject('createPresentationRequest payload.tenant is Nothing.')) ||
         (isNothing(payload.accessToken) && reject('createPresentationRequest payload.accessToken is Nothing.')) ||
-        (isNothing(payload.requestId) && reject('createPresentationRequest payload.requestId is Nothing.')) ||
+        (isNothing(payload.challengeId) && reject('createPresentationRequest payload.challengeId is Nothing.')) ||
         (isNothing(payload.did) && reject('createPresentationRequest payload.did is Nothing.')) ||
         (isNothing(payload.templateId) && reject('createPresentationRequest payload.templateId is Nothing.')) ||
         (isNothing(payload.callbackURL) && reject('createPresentationRequest payload.callbackURL is Nothing.')) ||
         axios.post(
             `https://${payload.tenant}/v1/presentations/requests`,
             {
-                "challenge": payload.requestId,
+                "challenge": payload.challengeId,
                 "did": payload.did,
                 "templateId": payload.templateId,
                 "expiresTime": payload.expiresTime || Math.round((new Date()).getTime()) + 300000,

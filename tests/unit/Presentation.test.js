@@ -54,7 +54,7 @@ test('createPresentationRequest returns AsyncEffect', async () => {
         await createPresentationRequest({
             tenant: 'tenant',
             accessToken: 'token',
-            requestId: 'id',
+            challengeId: 'id',
             did: 'did:key:code',
             templateId: 'id',
             callbackURL: 'url'
@@ -78,7 +78,7 @@ test('createPresentationRequest called with payload without tenant returns error
     // @ts-ignore
     await createPresentationRequest({
         accessToken: 'token',
-        requestId: 'id',
+        challengeId: 'id',
         did: 'did:key:code',
         templateId: 'id',
         callbackURL: 'url'
@@ -95,7 +95,7 @@ test('createPresentationRequest called with payload without accessToken returns 
     // @ts-ignore
     await createPresentationRequest({
         tenant: 'tenant',
-        requestId: 'id',
+        challengeId: 'id',
         did: 'did:key:code',
         templateId: 'id',
         callbackURL: 'url'
@@ -108,7 +108,7 @@ test('createPresentationRequest called with payload without accessToken returns 
     (result => fail(`This should not resolve with result ${result}`))
 });
 
-test('createPresentationRequest called with payload without requestId returns error', async () => {
+test('createPresentationRequest called with payload without challengeId returns error', async () => {
     // @ts-ignore
     await createPresentationRequest({
         tenant: 'tenant',
@@ -119,7 +119,7 @@ test('createPresentationRequest called with payload without requestId returns er
     })
     .trigger
     (error => {
-        expect(error).toBe('createPresentationRequest payload.requestId is Nothing.');
+        expect(error).toBe('createPresentationRequest payload.challengeId is Nothing.');
         return true;
     })
     (result => fail(`This should not resolve with result ${result}`))
@@ -130,7 +130,7 @@ test('createPresentationRequest called with payload without did returns error', 
     await createPresentationRequest({
         tenant: 'tenant',
         accessToken: 'token',
-        requestId: 'id',
+        challengeId: 'id',
         templateId: 'id',
         callbackURL: 'url'
     })
@@ -147,7 +147,7 @@ test('createPresentationRequest called with payload without templateId returns e
     await createPresentationRequest({
         tenant: 'tenant',
         accessToken: 'token',
-        requestId: 'id',
+        challengeId: 'id',
         did: 'did:key:code',
         callbackURL: 'url'
     })
@@ -164,7 +164,7 @@ test('createPresentationRequest called with payload without callbackURL returns 
     await createPresentationRequest({
         tenant: 'tenant',
         accessToken: 'token',
-        requestId: 'id',
+        challengeId: 'id',
         did: 'did:key:code',
         templateId: 'id'
     })

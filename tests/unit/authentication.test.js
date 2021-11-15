@@ -9,7 +9,7 @@ test('authentication returns AsyncEffect.', async () => {
             clientSecret: 'client secret',
             tenant: 'your-tenant.vii.mattr.global',
             did: 'did:method:code',
-            requestId: 'your-request-id',
+            challengeId: 'your-challenge-id',
             templateId: 'presentation template id',
             callbackURL: 'https://your-domain.tld/didauth/callback'
         }).inspect().startsWith('AsyncEffect')
@@ -22,7 +22,7 @@ test('getJWS returns AsyncEffect.', () => {
         tenant: 'your-tenant.vii.mattr.global',
         accessToken: 'token',
         did: 'did:method:code',
-        requestId: 'your-request-id',
+        challengeId: 'your-challenge-id',
         templateId: 'presentation template id',
         callbackURL: 'https://your-domain.tld/didauth/callback'
     }).inspect().startsWith('AsyncEffect'))

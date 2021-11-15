@@ -14,7 +14,7 @@ const helpGetPresentationRequestAndDID = () =>
             tenant: process.env.TENANT,
             accessToken: token,
             did: process.env.VERIFIER_DID,
-            requestId: uuidv4(),
+            challengeId: uuidv4(),
             templateId: process.env.TEMPLATE_ID,
             callbackURL: process.env.CALLBACK_URL
         })),

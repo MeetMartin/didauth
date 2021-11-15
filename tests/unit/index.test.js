@@ -9,7 +9,7 @@ test('authentication returns AsyncEffect.', async () => {
             clientSecret: 'client secret',
             tenant: 'your-tenant.vii.mattr.global',
             did: 'did:method:code',
-            requestId: 'your-request-id',
+            challengeId: 'your-challenge-id',
             templateId: 'presentation template id',
             callbackURL: 'https://your-domain.tld/didauth/callback'
         }).inspect().startsWith('AsyncEffect')
@@ -25,7 +25,7 @@ test('pushAuthentication returns AsyncEffect.', async () => {
             tenant: 'your-tenant.vii.mattr.global',
             did: 'did:method:code',
             recipientDid: 'did:method:code',
-            requestId: 'your-request-id',
+            challengeId: 'your-challenge-id',
             templateId: 'presentation template id',
             callbackURL: 'https://your-domain.tld/didauth/callback'
         }).inspect().startsWith('AsyncEffect')

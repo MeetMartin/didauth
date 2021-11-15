@@ -23,16 +23,16 @@ test('validatePayloadKey takes payload object and a key within it to return Eith
 test('validatePayload with valid payload returns Success.', () => {
     expect(
         validatePayload(
-            ['clientId', 'clientSecret', 'tenant', 'did', 'requestId', 'templateId', 'callbackURL']
+            ['clientId', 'clientSecret', 'tenant', 'did', 'challengeId', 'templateId', 'callbackURL']
         )({
             clientId: 'client id',
             clientSecret: 'client secret',
             tenant: 'your-tenant.vii.mattr.global',
             did: 'did:method:code',
-            requestId: 'your-request-id',
+            challengeId: 'your-challenge-id',
             templateId: 'presentation template id',
             callbackURL: 'https://your-domain.tld/didauth/callback'
-        }).inspect().startsWith("Success({clientId: 'client id', clientSecret: 'client secret', tenant: 'your-tenant.vii.mattr.global', did: 'did:method:code', requestId: 'your-request-id', templateId: 'presentation template id', callbackURL: 'https://your-domain.tld/didauth/callback'})")
+        }).inspect().startsWith("Success({clientId: 'client id', clientSecret: 'client secret', tenant: 'your-tenant.vii.mattr.global', did: 'did:method:code', challengeId: 'your-challenge-id', templateId: 'presentation template id', callbackURL: 'https://your-domain.tld/didauth/callback'})")
     )
     .toBe(true);
 });
@@ -40,7 +40,7 @@ test('validatePayload with valid payload returns Success.', () => {
 test('validatePayload with invalid payload returns Failure with an array of errors.', () => {
     expect(
         validatePayload(
-            ['clientId', 'clientSecret', 'tenant', 'did', 'requestId', 'templateId', 'callbackURL']
+            ['clientId', 'clientSecret', 'tenant', 'did', 'challengeId', 'templateId', 'callbackURL']
         )({
             fake: 'fake'
         }).inspect().startsWith('Failure([')
@@ -53,7 +53,7 @@ test('getPresentationRequestAndDID returns AsyncEffect.', () => {
         tenant: 'your-tenant.vii.mattr.global',
         accessToken: 'token',
         did: 'did:method:code',
-        requestId: 'your-request-id',
+        challengeId: 'your-challenge-id',
         templateId: 'presentation template id',
         callbackURL: 'https://your-domain.tld/didauth/callback'
     }).inspect().startsWith('AsyncEffect'))

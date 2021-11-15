@@ -30,9 +30,9 @@ export type CreatePresentationRequestPayload = {
      */
     accessToken: string;
     /**
-     * Request ID used by your app to tie together the request and the callback response
+     * Challenge ID used by your app to tie together the request and the callback response
      */
-    requestId: string;
+    challengeId: string;
     /**
      * verifier DID
      */
@@ -78,7 +78,7 @@ export function createPresentationTemplate(payload: CreatePresentationTemplatePa
  * @typedef {object} CreatePresentationRequestPayload
  * @property {string} tenant MATTR tenant
  * @property {string} accessToken MATTR platform access token string
- * @property {string} requestId Request ID used by your app to tie together the request and the callback response
+ * @property {string} challengeId Challenge ID used by your app to tie together the request and the callback response
  * @property {string} did verifier DID
  * @property {string} templateId presentation template ID
  * @property {string} callbackURL callback URL that MATTR platform will call with the request result

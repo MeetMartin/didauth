@@ -12,7 +12,7 @@ import { createJWS } from './effects/Messaging';
  * @property {string} clientSecret Secret provided as part of MATTR platform onboarding
  * @property {string} tenant Your MATTR tenant
  * @property {string} did Verifier DID representing your application
- * @property {string} requestId Request ID used by your app to tie together the request and the callback response
+ * @property {string} challengeId Challenge ID used by your app to tie together the request and the callback response
  * @property {string} templateId Authentication presentation template ID
  * @property {string} callbackURL Callback URL that MATTR platform will call with the request result
  */
@@ -22,7 +22,7 @@ import { createJWS } from './effects/Messaging';
  * @property {string} tenant Your MATTR tenant
  * @property {string} accessToken MATTR platform access token string
  * @property {string} did Verifier DID representing your application
- * @property {string} requestId Request ID used by your app to tie together the request and the callback response
+ * @property {string} challengeId Challenge ID used by your app to tie together the request and the callback response
  * @property {string} templateId Authentication presentation template ID
  * @property {string} callbackURL Callback URL that MATTR platform will call with the request result
  */
@@ -59,9 +59,11 @@ const getJWS = payload =>
  * URL is intended to be used to redirect the user.
  * 
  * As a result, MATTR platform calls supplied callback URL with the result that connects to your request by a supplied
- * Request ID.
+ * Challenge ID.
  * 
- * We return a monad @7urtle/lambda.AsyncEffect as the output of the function: https://www.7urtle.com/documentation-7urtle-lambda#lambda-AsyncEffect
+ * We return a monad @7urtle/lambda.AsyncEffect as the output of the function: https://www.7urtle.com/documentation-7urtle-lambda#lambda-AsyncEffect.
+ * On success the monad will hold a string with a redirect URL with JWS intended for the digital wallet. On failure it with hold a string
+ * describing the error.
  * 
  * @pure
  * @HindleyMilner authentication :: AuthenticationPayload -> AsyncEffect
@@ -75,7 +77,7 @@ const getJWS = payload =>
  *     clientSecret: 'client secret', // client secret provided by MATTR
  *     tenant: 'your-tenant.vii.mattr.global', // your tenant provided by MATTR
  *     did: 'did:method:code', // your verifier DID representing your application created in MATTR platform
- *     requestId: 'your-request-id', // custom ID provided by your application to connect request internally
+ *     challengeId: 'your-challenge-id', // custom ID provided by your application to connect request internally
  *     templateId: 'presentation template id', // presentation template ID created in MATTR platform
  *     callbackURL: 'https://your-domain.tld/didauth/callback' // callback url of your website that the digital wallet will call
  * };
@@ -102,7 +104,7 @@ const authentication = payload =>
         map(response => response.data.access_token),
         flatMap(requestAccessToken),
         eitherToAsyncEffect,
-        validatePayload(['clientId', 'clientSecret', 'tenant', 'did', 'requestId', 'templateId', 'callbackURL'])
+        validatePayload(['clientId', 'clientSecret', 'tenant', 'did', 'challengeId', 'templateId', 'callbackURL'])
     )(payload);
 
 export {

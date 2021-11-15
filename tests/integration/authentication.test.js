@@ -10,7 +10,7 @@ test('authentication returns JWS url when triggered.', async () => {
         clientSecret: process.env.CLIENT_SECRET,
         tenant: process.env.TENANT,
         did: process.env.VERIFIER_DID,
-        requestId: uuidv4(),
+        challengeId: uuidv4(),
         templateId: process.env.TEMPLATE_ID,
         callbackURL: process.env.CALLBACK_URL
     })
@@ -31,7 +31,7 @@ test('authentication with ivalid payload triggers validation error.', async () =
     await authentication({ fake: 'fake' })
     .trigger
     (error => {
-        expect(error).toEqual(["payload.clientId is Nothing or not a string.", "payload.clientSecret is Nothing or not a string.", "payload.tenant is Nothing or not a string.", "payload.did is Nothing or not a string.", "payload.requestId is Nothing or not a string.", "payload.templateId is Nothing or not a string.", "payload.callbackURL is Nothing or not a string."]);
+        expect(error).toEqual(["payload.clientId is Nothing or not a string.", "payload.clientSecret is Nothing or not a string.", "payload.tenant is Nothing or not a string.", "payload.did is Nothing or not a string.", "payload.challengeId is Nothing or not a string.", "payload.templateId is Nothing or not a string.", "payload.callbackURL is Nothing or not a string."]);
         return error;
     })
     (response => {

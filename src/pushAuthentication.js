@@ -13,7 +13,7 @@ import { createJWE, sendMessage } from './effects/Messaging';
  * @property {string} tenant Your MATTR tenant
  * @property {string} did Verifier DID representing your application,
  * @property {string} recipientDid User's DID stored by your application
- * @property {string} requestId Request ID used by your app to tie together the request and the callback response
+ * @property {string} challengeId Challenge ID used by your app to tie together the request and the callback response
  * @property {string} templateId Authentication presentation template ID
  * @property {string} callbackURL Callback URL that MATTR platform will call with the request result
  */
@@ -24,7 +24,7 @@ import { createJWE, sendMessage } from './effects/Messaging';
  * @property {string} accessToken MATTR platform access token string
  * @property {string} did Verifier DID representing your application,
  * @property {string} recipientDid User's DID stored by your application
- * @property {string} requestId Request ID used by your app to tie together the request and the callback response
+ * @property {string} challengeId Challenge ID used by your app to tie together the request and the callback response
  * @property {string} templateId Authentication presentation template ID
  * @property {string} callbackURL Callback URL that MATTR platform will call with the request result
  */
@@ -51,9 +51,11 @@ const createPushRequest = payload =>
  * stored in your system to find the user's digital wallet and ask them for authentication through a push request on their phone.
  * 
  * As a result, MATTR platform calls supplied callback URL with the result that connects to your request by a supplied
- * Request ID.
+ * Challenge ID.
  * 
- * We return a monad @7urtle/lambda.AsyncEffect as the output of the function: https://www.7urtle.com/documentation-7urtle-lambda#lambda-AsyncEffect
+ * We return a monad @7urtle/lambda.AsyncEffect as the output of the function: https://www.7urtle.com/documentation-7urtle-lambda#lambda-AsyncEffect.
+ * On success the monad will hold the string 'Success' indicating that the authentication request was sent to a digital wallet. On failure it with hold a string
+ * describing the error.
  * 
  * @pure
  * @HindleyMilner pushAuthentication :: PushAuthenticationPayload -> AsyncEffect
@@ -68,7 +70,7 @@ const createPushRequest = payload =>
  *     tenant: 'your-tenant.vii.mattr.global', // your tenant provided by MATTR
  *     did: 'did:method:code', // your verifier DID representing your application created in MATTR platform
  *     recipientDid: 'did:method:code', // users DID store by your application
- *     requestId: 'your-request-id', // custom ID provided by your application to connect request internally
+ *     challengeId: 'your-challenge-id', // custom ID provided by your application to connect request internally
  *     templateId: 'presentation template id', // presentation template ID created in MATTR platform
  *     callbackURL: 'https://your-domain.tld/didauth/callback' // callback url of your website that the digital wallet will call
  * };
@@ -85,6 +87,7 @@ const createPushRequest = payload =>
  */
 const pushAuthentication = payload =>
     compose(
+        map(() => 'Success'),
         flatMap(accessToken => createPushRequest({
             ...payload,
             accessToken: accessToken
@@ -92,7 +95,7 @@ const pushAuthentication = payload =>
         map(response => response.data.access_token),
         flatMap(requestAccessToken),
         eitherToAsyncEffect,
-        validatePayload(['clientId', 'clientSecret', 'tenant', 'did', 'recipientDid', 'requestId', 'templateId', 'callbackURL'])
+        validatePayload(['clientId', 'clientSecret', 'tenant', 'did', 'recipientDid', 'challengeId', 'templateId', 'callbackURL'])
     )(payload);
 
 export {

@@ -31,9 +31,9 @@ all the necessary plumbing to support decentralized identifiers and a digital wa
 authentication is a pure function that creates an authentication request URL for DID Authentication with your MATTR tenant. The resulting URL
 is intended to be used to redirect the user.
 
-As a result, MATTR platform calls supplied callback URL with the result that connects to your request by a supplied Request ID.
+As a result, MATTR platform calls supplied callback URL with the result that connects to your request by a supplied Challenge ID.
 
-We return a monad @7urtle/lambda.AsyncEffect as the output of the function: https://www.7urtle.com/documentation-7urtle-lambda#lambda-AsyncEffect
+We return a monad @7urtle/lambda.AsyncEffect as the output of the function: https://www.7urtle.com/documentation-7urtle-lambda#lambda-AsyncEffect. On success the monad will hold a string with a redirect URL with JWS intended for the digital wallet. On failure it with hold a string describing the error.
 
 ```
 import { authentication } from 'didauth';
@@ -43,7 +43,7 @@ const payload = {
     clientSecret: 'client secret', // client secret provided by MATTR
     tenant: 'your-tenant.vii.mattr.global', // your tenant provided by MATTR
     did: 'did:method:code', // your verifier DID representing your application created in MATTR platform
-    requestId: 'your-request-id', // custom ID provided by your application to connect request internally
+    challengeId: 'your-challenge-id', // custom ID provided by your application to connect request internally
     templateId: 'presentation template id', // presentation template ID created in MATTR platform
     callbackURL: 'https://your-domain.tld/didauth/callback' // callback url of your website that the digital wallet will call
 };
@@ -66,9 +66,9 @@ authentication(payload)
 
 pushAuthentication is a pure function that creates an authentication digital wallet push request for DID Authentication with your MATTR tenant. It uses the recipientDID stored in your system to find the user's digital wallet and ask them for authentication through a push request on their phone.
 
-As a result, MATTR platform calls supplied callback URL with the result that connects to your request by a supplied Request ID.
+As a result, MATTR platform calls supplied callback URL with the result that connects to your request by a supplied Challenge ID.
 
-We return a monad @7urtle/lambda.AsyncEffect as the output of the function: https://www.7urtle.com/documentation-7urtle-lambda#lambda-AsyncEffect
+We return a monad @7urtle/lambda.AsyncEffect as the output of the function: https://www.7urtle.com/documentation-7urtle-lambda#lambda-AsyncEffect. On success the monad will hold the string 'Success' indicating that the authentication request was sent to a digital wallet. On failure it with hold a string describing the error.
 
 ```
 import { pushAuthentication } from 'didauth';
@@ -79,7 +79,7 @@ const payload = {
     tenant: 'your-tenant.vii.mattr.global', // your tenant provided by MATTR
     did: 'did:method:code', // your verifier DID representing your application created in MATTR platform
     recipientDid: 'did:method:code', // users DID store by your application
-    requestId: 'your-request-id', // custom ID provided by your application to connect request internally
+    challengeId: 'your-challenge-id', // custom ID provided by your application to connect request internally
     templateId: 'presentation template id', // presentation template ID created in MATTR platform
     callbackURL: 'https://your-domain.tld/didauth/callback' // callback url of your website that the digital wallet will call
 };

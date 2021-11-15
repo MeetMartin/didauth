@@ -70,7 +70,7 @@ const validatePayloadKey = payload => key =>
  * @property {string} tenant Your MATTR tenant
  * @property {string} accessToken MATTR platform access token string
  * @property {string} did Verifier DID representing your application
- * @property {string} requestId Request ID used by your app to tie together the request and the callback response
+ * @property {string} challengeId Challenge ID used by your app to tie together the request and the callback response
  * @property {string} templateId Authentication presentation template ID
  * @property {string} callbackURL Callback URL that MATTR platform will call with the request result
  */

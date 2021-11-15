@@ -20,9 +20,9 @@ export type PushAuthenticationPayload = {
      */
     recipientDid: string;
     /**
-     * Request ID used by your app to tie together the request and the callback response
+     * Challenge ID used by your app to tie together the request and the callback response
      */
-    requestId: string;
+    challengeId: string;
     /**
      * Authentication presentation template ID
      */
@@ -50,9 +50,9 @@ export type FullPushAuthenticationPayload = {
      */
     recipientDid: string;
     /**
-     * Request ID used by your app to tie together the request and the callback response
+     * Challenge ID used by your app to tie together the request and the callback response
      */
-    requestId: string;
+    challengeId: string;
     /**
      * Authentication presentation template ID
      */
@@ -67,7 +67,7 @@ export type FullPushAuthenticationPayload = {
  * stored in your system to find the user's digital wallet and ask them for authentication through a push request on their phone.
  *
  * As a result, MATTR platform calls supplied callback URL with the result that connects to your request by a supplied
- * Request ID.
+ * Challenge ID.
  *
  * We return a monad @7urtle/lambda.AsyncEffect as the output of the function: https://www.7urtle.com/documentation-7urtle-lambda#lambda-AsyncEffect
  *
@@ -84,7 +84,7 @@ export type FullPushAuthenticationPayload = {
  *     tenant: 'your-tenant.vii.mattr.global',
  *     did: 'did:method:code',
  *     recipientDid: 'did:method:code',
- *     requestId: 'your-request-id',
+ *     challengeId: 'your-challenge-id',
  *     templateId: 'presentation template id',
  *     callbackURL: 'https://your-domain.tld/didauth/callback'
  * };
@@ -107,7 +107,7 @@ export function pushAuthentication(payload: PushAuthenticationPayload): any;
  * @property {string} tenant Your MATTR tenant
  * @property {string} did Verifier DID representing your application,
  * @property {string} recipientDid User's DID stored by your application
- * @property {string} requestId Request ID used by your app to tie together the request and the callback response
+ * @property {string} challengeId Challenge ID used by your app to tie together the request and the callback response
  * @property {string} templateId Authentication presentation template ID
  * @property {string} callbackURL Callback URL that MATTR platform will call with the request result
  */
@@ -117,7 +117,7 @@ export function pushAuthentication(payload: PushAuthenticationPayload): any;
  * @property {string} accessToken MATTR platform access token string
  * @property {string} did Verifier DID representing your application,
  * @property {string} recipientDid User's DID stored by your application
- * @property {string} requestId Request ID used by your app to tie together the request and the callback response
+ * @property {string} challengeId Challenge ID used by your app to tie together the request and the callback response
  * @property {string} templateId Authentication presentation template ID
  * @property {string} callbackURL Callback URL that MATTR platform will call with the request result
  */

@@ -11,7 +11,7 @@ test('pushAuthentication returns 200 when triggered.', async () => {
         tenant: process.env.TENANT,
         did: process.env.VERIFIER_DID,
         recipientDid: process.env.RECIPIENT_DID,
-        requestId: uuidv4(),
+        challengeId: uuidv4(),
         templateId: process.env.TEMPLATE_ID,
         callbackURL: process.env.CALLBACK_URL
     })
@@ -20,7 +20,7 @@ test('pushAuthentication returns 200 when triggered.', async () => {
         throw new Error(error);
     })
     (response => {
-        expect(response.status).toBe(200);
+        expect(response).toBe('Success');
         return response;
     })
 });
@@ -30,7 +30,7 @@ test('pushAuthentication with ivalid payload triggers validation error.', async 
     await pushAuthentication({ fake: 'fake' })
     .trigger
     (error => {
-        expect(error).toEqual(["payload.clientId is Nothing or not a string.", "payload.clientSecret is Nothing or not a string.", "payload.tenant is Nothing or not a string.", "payload.did is Nothing or not a string.", "payload.recipientDid is Nothing or not a string.", "payload.requestId is Nothing or not a string.", "payload.templateId is Nothing or not a string.", "payload.callbackURL is Nothing or not a string."]);
+        expect(error).toEqual(["payload.clientId is Nothing or not a string.", "payload.clientSecret is Nothing or not a string.", "payload.tenant is Nothing or not a string.", "payload.did is Nothing or not a string.", "payload.recipientDid is Nothing or not a string.", "payload.challengeId is Nothing or not a string.", "payload.templateId is Nothing or not a string.", "payload.callbackURL is Nothing or not a string."]);
         return error;
     })
     (response => {

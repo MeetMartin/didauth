@@ -20,9 +20,9 @@ export type PresentationRequestAndDIDPayload = {
      */
     did: string;
     /**
-     * Request ID used by your app to tie together the request and the callback response
+     * Challenge ID used by your app to tie together the request and the callback response
      */
-    requestId: string;
+    challengeId: string;
     /**
      * Authentication presentation template ID
      */
@@ -80,7 +80,7 @@ export function validatePayload(keys: Array<string>): (arg0: object) => any;
  * @property {string} tenant Your MATTR tenant
  * @property {string} accessToken MATTR platform access token string
  * @property {string} did Verifier DID representing your application
- * @property {string} requestId Request ID used by your app to tie together the request and the callback response
+ * @property {string} challengeId Challenge ID used by your app to tie together the request and the callback response
  * @property {string} templateId Authentication presentation template ID
  * @property {string} callbackURL Callback URL that MATTR platform will call with the request result
  */

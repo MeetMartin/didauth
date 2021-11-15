@@ -28,7 +28,7 @@ const helpCreatePresentationRequest = payload =>
         flatMap(token => createPresentationRequest({
             tenant: payload.tenant,
             accessToken: token,
-            requestId: payload.requestId,
+            challengeId: payload.challengeId,
             did: payload.did,
             templateId: payload.templateId,
             callbackURL: payload.callbackURL
@@ -108,7 +108,7 @@ test('createPresentationRequest with invalid tenant fails with getaddrinfo error
     await createPresentationRequest({
         tenant: 'tenant',
         accessToken: 'token',
-        requestId: 'id',
+        challengeId: 'id',
         did: 'did:key:code',
         templateId: 'id',
         callbackURL: 'url'
@@ -127,7 +127,7 @@ test('createPresentationRequest with invalid token fails with 401 error.', async
     await createPresentationRequest({
         tenant: process.env.TENANT,
         accessToken: 'token',
-        requestId: 'id',
+        challengeId: 'id',
         did: 'fake',
         templateId: 'id',
         callbackURL: 'url'
@@ -145,7 +145,7 @@ test('createPresentationRequest with invalid token fails with 401 error.', async
 test('createPresentationRequest with invalid inputs fails with 400 error.', async () => {
     await helpCreatePresentationRequest({
         tenant: process.env.TENANT,
-        requestId: uuidv4(),
+        challengeId: uuidv4(),
         did: 'fake',
         templateId: 'fake',
         callbackURL: 'fake'
@@ -163,7 +163,7 @@ test('createPresentationRequest with invalid inputs fails with 400 error.', asyn
 test('createPresentationRequest with valid inputs returns presentation request.', async () => {
     await helpCreatePresentationRequest({
         tenant: process.env.TENANT,
-        requestId: uuidv4(),
+        challengeId: uuidv4(),
         did: process.env.VERIFIER_DID,
         templateId: process.env.TEMPLATE_ID,
         callbackURL: process.env.CALLBACK_URL
@@ -182,7 +182,7 @@ test('createPresentationRequest with valid inputs returns presentation request.'
 test('createPresentationRequest with valid optional inputs returns presentation request.', async () => {
     await helpCreatePresentationRequest({
         tenant: process.env.TENANT,
-        requestId: uuidv4(),
+        challengeId: uuidv4(),
         did: process.env.VERIFIER_DID,
         templateId: process.env.TEMPLATE_ID,
         callbackURL: process.env.CALLBACK_URL,
