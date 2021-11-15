@@ -50,7 +50,7 @@ const getJWS = payload =>
         map(jws => getJWSURL({tenant: payload.tenant, jws: jws})),
         map(result => result.data),
         flatMap(data => createJWS({...payload, ...data})),
-        map(responses => ({request: responses[0].data?.request, didUrl: responses[1].data?.didDocument?.authentication[0]})),
+        map(responses => ({request: responses[0].data.request, didUrl: responses[1].data.didDocument.authentication[0]})),
         getPresentationRequestAndDID
     )(payload);
 

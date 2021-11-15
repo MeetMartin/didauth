@@ -42,7 +42,7 @@ const createPushRequest = payload =>
         flatMap(message => sendMessage({...payload, message: message})),
         map(response => response.data.jwe),
         flatMap(request => createJWE({...payload, ...request, recipientDids: [payload.recipientDid]})),
-        map(responses => ({request: responses[0].data?.request, didUrl: responses[1].data?.didDocument?.keyAgreement[0]?.id})),
+        map(responses => ({request: responses[0].data.request, didUrl: responses[1].data.didDocument.keyAgreement[0].id})),
         getPresentationRequestAndDID
     )(payload);
 

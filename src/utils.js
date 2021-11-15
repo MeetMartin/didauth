@@ -21,8 +21,8 @@ import { readDID } from './effects/DID';
  */
 const formatError = error =>
     `${error}.` +
-    `${error?.response?.data?.message ? ` ${error.response.data.message}.` : ''}` +
-    `${error?.response?.data?.details ? ` ${deepInspect(error.response.data.details)}.` : ''}`;
+    `${error && error.response && error.response.data && error.response.data.message ? ` ${error.response.data.message}.` : ''}` +
+    `${error && error.response && error.response.data && error.response.data.details ? ` ${deepInspect(error.response.data.details)}.` : ''}`;
 
 /**
  * validatePayloadKey validates that key withing a payload is a string that is not Nothing.
