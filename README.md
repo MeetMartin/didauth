@@ -98,6 +98,8 @@ pushAuthentication(payload)
 ## Run Tests
 The library has 100 % test coverage with unit tests and integration tests.
 
+![test-coverage](https://user-images.githubusercontent.com/11709245/141865668-f3394442-f622-4f33-8fe3-0e2609a9bf9f.jpg)
+
 To run unit tests locally, call:
 
 ```
