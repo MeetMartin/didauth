@@ -8,7 +8,9 @@
 didauth is a JavaScript NPM libray for building DID authentication. Library uses JSDoc and Typescript typings for your convinience.
 
 ## Example Demo Website
+
 [DID Authentication didauth.meet-martin.com](https://didauth.meet-martin.com/)
+
 [Demo Website Github Repository](https://github.com/MeetMartin/did-authentication)
 
 ## Get Started
@@ -120,6 +122,6 @@ Typescript typings and JSDoc are provided with the library.
 
 ## Contributors
 
-[![Contributors](https://contributors-img.firebaseapp.com/image?repo=MeetMartin/lambda)](https://github.com/MeetMartin/lambda/graphs/contributors)
+[![Contributors](https://contributors-img.firebaseapp.com/image?repo=MeetMartin/didauth)](https://github.com/MeetMartin/lambda/graphs/contributors)
 
 Made with [contributors-img](https://contributors-img.firebaseapp.com).
