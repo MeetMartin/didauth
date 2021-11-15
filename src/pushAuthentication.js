@@ -63,14 +63,14 @@ const createPushRequest = payload =>
  * import { pushAuthentication } from 'didauth';
  * 
  * const payload = {
- *     clientId: 'client id',
- *     clientSecret: 'client secret',
- *     tenant: 'your-tenant.vii.mattr.global',
- *     did: 'did:method:code',
- *     recipientDid: 'did:method:code',
- *     requestId: 'your-request-id',
- *     templateId: 'presentation template id',
- *     callbackURL: 'https://your-domain.tld/didauth/callback'
+ *     clientId: 'client id', // client id provided by MATTR
+ *     clientSecret: 'client secret', // client secret provided by MATTR
+ *     tenant: 'your-tenant.vii.mattr.global', // your tenant provided by MATTR
+ *     did: 'did:method:code', // your verifier DID representing your application created in MATTR platform
+ *     recipientDid: 'did:method:code', // users DID store by your application
+ *     requestId: 'your-request-id', // custom ID provided by your application to connect request internally
+ *     templateId: 'presentation template id', // presentation template ID created in MATTR platform
+ *     callbackURL: 'https://your-domain.tld/didauth/callback' // callback url of your website that the digital wallet will call
  * };
  * 
  * pushAuthentication(payload)
