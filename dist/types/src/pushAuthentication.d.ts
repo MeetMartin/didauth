@@ -69,7 +69,9 @@ export type FullPushAuthenticationPayload = {
  * As a result, MATTR platform calls supplied callback URL with the result that connects to your request by a supplied
  * Challenge ID.
  *
- * We return a monad @7urtle/lambda.AsyncEffect as the output of the function: https://www.7urtle.com/documentation-7urtle-lambda#lambda-AsyncEffect
+ * We return a monad @7urtle/lambda.AsyncEffect as the output of the function: https://www.7urtle.com/documentation-7urtle-lambda#lambda-AsyncEffect.
+ * On success the monad will hold the string 'Success' indicating that the authentication request was sent to a digital wallet. On failure it with hold a string
+ * describing the error.
  *
  * @pure
  * @HindleyMilner pushAuthentication :: PushAuthenticationPayload -> AsyncEffect
@@ -79,14 +81,14 @@ export type FullPushAuthenticationPayload = {
  * import { pushAuthentication } from 'didauth';
  *
  * const payload = {
- *     clientId: 'client id',
- *     clientSecret: 'client secret',
- *     tenant: 'your-tenant.vii.mattr.global',
- *     did: 'did:method:code',
- *     recipientDid: 'did:method:code',
- *     challengeId: 'your-challenge-id',
- *     templateId: 'presentation template id',
- *     callbackURL: 'https://your-domain.tld/didauth/callback'
+ *     clientId: 'client id', // client id provided by MATTR
+ *     clientSecret: 'client secret', // client secret provided by MATTR
+ *     tenant: 'your-tenant.vii.mattr.global', // your tenant provided by MATTR
+ *     did: 'did:method:code', // your verifier DID representing your application created in MATTR platform
+ *     recipientDid: 'did:method:code', // users DID store by your application
+ *     challengeId: 'your-challenge-id', // custom ID provided by your application to connect request internally
+ *     templateId: 'presentation template id', // presentation template ID created in MATTR platform
+ *     callbackURL: 'https://your-domain.tld/didauth/callback' // callback url of your website that the digital wallet will call
  * };
  *
  * pushAuthentication(payload)
