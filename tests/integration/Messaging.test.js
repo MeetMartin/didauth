@@ -88,7 +88,10 @@ test('createJWS with invalid tenant fails with getaddrinfo error.', async () => 
     })
     .trigger
     (error => {
-        expect(error).toBe('Creating JWS: Error: getaddrinfo ENOTFOUND tenant.');
+        expect([
+            'Creating JWS: Error: getaddrinfo ENOTFOUND tenant.',
+            'Creating JWS: Error: getaddrinfo EAI_AGAIN tenant.'
+        ]).toContain(error);
         return error;
     })
     (response => {
@@ -156,7 +159,10 @@ test('createJWE with invalid tenant fails with getaddrinfo error.', async () => 
     })
     .trigger
     (error => {
-        expect(error).toBe('Creating JWE: Error: getaddrinfo ENOTFOUND tenant.');
+        expect([
+            'Creating JWE: Error: getaddrinfo ENOTFOUND tenant.',
+            'Creating JWE: Error: getaddrinfo EAI_AGAIN tenant.'
+        ]).toContain(error);
         return error;
     })
     (response => {
@@ -226,7 +232,10 @@ test('sendMessage with invalid tenant fails with getaddrinfo error.', async () =
     })
     .trigger
     (error => {
-        expect(error).toBe('Sending Message: Error: getaddrinfo ENOTFOUND tenant.');
+        expect([
+            'Sending Message: Error: getaddrinfo ENOTFOUND tenant.',
+            'Sending Message: Error: getaddrinfo EAI_AGAIN tenant.'
+        ]).toContain(error);
         return error;
     })
     (response => {

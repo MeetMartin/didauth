@@ -47,7 +47,10 @@ test('createPresentationTemplate with invalid tenant fails with getaddrinfo erro
     })
     .trigger
     (error => {
-        expect(error).toBe('Creating Presentation Template: Error: getaddrinfo ENOTFOUND tenant.');
+        expect([
+            'Creating Presentation Template: Error: getaddrinfo ENOTFOUND tenant.',
+            'Creating Presentation Template: Error: getaddrinfo EAI_AGAIN tenant.'
+        ]).toContain(error);
         return error;
     })
     (response => {
@@ -115,7 +118,10 @@ test('createPresentationRequest with invalid tenant fails with getaddrinfo error
     })
     .trigger
     (error => {
-        expect(error).toBe('Creating Presentation Request: Error: getaddrinfo ENOTFOUND tenant.');
+        expect([
+            'Creating Presentation Request: Error: getaddrinfo ENOTFOUND tenant.',
+            'Creating Presentation Request: Error: getaddrinfo EAI_AGAIN tenant.'
+        ]).toContain(error);
         return error;
     })
     (response => {

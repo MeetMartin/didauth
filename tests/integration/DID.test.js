@@ -42,7 +42,10 @@ test('createDID with invalid tenant fails with getaddrinfo error.', async () => 
     })
     .trigger
     (error => {
-        expect(error).toBe('Creating DID: Error: getaddrinfo ENOTFOUND tenant.');
+        expect([
+            'Creating DID: Error: getaddrinfo ENOTFOUND tenant.',
+            'Creating DID: Error: getaddrinfo EAI_AGAIN tenant.'
+        ]).toContain(error);
         return error;
     })
     (response => {
@@ -105,7 +108,10 @@ test('readDID with invalid tenant fails with getaddrinfo error.', async () => {
     })
     .trigger
     (error => {
-        expect(error).toBe('Reading DID: Error: getaddrinfo ENOTFOUND tenant.');
+        expect([
+            'Reading DID: Error: getaddrinfo ENOTFOUND tenant.',
+            'Reading DID: Error: getaddrinfo EAI_AGAIN tenant.'
+        ]).toContain(error);
         return error;
     })
     (response => {
