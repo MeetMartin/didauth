@@ -16,8 +16,8 @@ const helpCreateDID = payload =>
         })),
         map(response => response.data.access_token),
         () => requestAccessToken({
-            clientId: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET
+            clientId: process.env.MATTR_CLIENT_ID,
+            clientSecret: process.env.MATTR_CLIENT_SECRET
         })
     )();
 
@@ -30,8 +30,8 @@ const helpReadDID = tenant => did =>
         })),
         map(response => response.data.access_token),
         () => requestAccessToken({
-            clientId: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET
+            clientId: process.env.MATTR_CLIENT_ID,
+            clientSecret: process.env.MATTR_CLIENT_SECRET
         })
     )();
 
@@ -52,7 +52,7 @@ test('createDID with invalid tenant fails with getaddrinfo error.', async () => 
 
 test('createDID with invalid token fails with 401 error.', async () => {
     await createDID({
-        tenant: process.env.TENANT,
+        tenant: process.env.MATTR_TENANT,
         accessToken: 'token'
     })
     .trigger
@@ -66,7 +66,7 @@ test('createDID with invalid token fails with 401 error.', async () => {
 });
 
 test('createDID with valid input returns DID key document.', async () => {
-    await helpCreateDID({tenant: process.env.TENANT})
+    await helpCreateDID({tenant: process.env.MATTR_TENANT})
     .trigger
     (error => {
         throw new Error(error);
@@ -80,7 +80,7 @@ test('createDID with valid input returns DID key document.', async () => {
 
 test('createDID with valid input including method and options returns DID document.', async () => {
     await helpCreateDID({
-        tenant: process.env.TENANT,
+        tenant: process.env.MATTR_TENANT,
         method: 'key',
         options: {
             keyType: 'ed25519'
@@ -115,7 +115,7 @@ test('readDID with invalid tenant fails with getaddrinfo error.', async () => {
 
 test('readDID with invalid token fails with 401 error.', async () => {
     await readDID({
-        tenant: process.env.TENANT,
+        tenant: process.env.MATTR_TENANT,
         did: 'did',
         accessToken: 'token'
     })
@@ -130,7 +130,7 @@ test('readDID with invalid token fails with 401 error.', async () => {
 });
 
 test('readDID with invalid did fails with 404 error.', async () => {
-    await helpReadDID(process.env.TENANT)('did:key:code')
+    await helpReadDID(process.env.MATTR_TENANT)('did:key:code')
     .trigger
     (error => {
         expect(error).toBe('Reading DID: Error: Request failed with status code 404. Resource Not Found.');
@@ -142,7 +142,7 @@ test('readDID with invalid did fails with 404 error.', async () => {
 });
 
 test('readDID with valid credentials returns access token.', async () => {
-    await helpReadDID(process.env.TENANT)(process.env.VERIFIER_DID)
+    await helpReadDID(process.env.MATTR_TENANT)(process.env.VERIFIER_DID)
     .trigger
     (error => {
         throw new Error(error);

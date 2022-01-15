@@ -18,8 +18,8 @@ const helpCreatePresentationTemplate = payload =>
         })),
         map(response => response.data.access_token),
         () => requestAccessToken({
-            clientId: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET
+            clientId: process.env.MATTR_CLIENT_ID,
+            clientSecret: process.env.MATTR_CLIENT_SECRET
         })
     )();
 
@@ -35,8 +35,8 @@ const helpCreatePresentationRequest = payload =>
         })),
         map(response => response.data.access_token),
         () => requestAccessToken({
-            clientId: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET
+            clientId: process.env.MATTR_CLIENT_ID,
+            clientSecret: process.env.MATTR_CLIENT_SECRET
         })
     )();
 
@@ -57,7 +57,7 @@ test('createPresentationTemplate with invalid tenant fails with getaddrinfo erro
 
 test('createPresentationTemplate with invalid token fails with 401 error.', async () => {
     await createPresentationTemplate({
-        tenant: process.env.TENANT,
+        tenant: process.env.MATTR_TENANT,
         accessToken: 'token'
     })
     .trigger
@@ -72,7 +72,7 @@ test('createPresentationTemplate with invalid token fails with 401 error.', asyn
 
 test('createPresentationTemplate with valid inputs returns presentation template.', async () => {
     await helpCreatePresentationTemplate({
-        tenant: process.env.TENANT,
+        tenant: process.env.MATTR_TENANT,
         domain: process.env.DOMAIN
     })
     .trigger
@@ -88,7 +88,7 @@ test('createPresentationTemplate with valid inputs returns presentation template
 
 test('createPresentationTemplate with valid optional inputs returns presentation template.', async () => {
     await helpCreatePresentationTemplate({
-        tenant: process.env.TENANT,
+        tenant: process.env.MATTR_TENANT,
         domain: process.env.DOMAIN,
         name: uuidv4(),
         query: [{type: 'DIDAuth'}]
@@ -125,7 +125,7 @@ test('createPresentationRequest with invalid tenant fails with getaddrinfo error
 
 test('createPresentationRequest with invalid token fails with 401 error.', async () => {
     await createPresentationRequest({
-        tenant: process.env.TENANT,
+        tenant: process.env.MATTR_TENANT,
         accessToken: 'token',
         challengeId: 'id',
         did: 'fake',
@@ -144,7 +144,7 @@ test('createPresentationRequest with invalid token fails with 401 error.', async
 
 test('createPresentationRequest with invalid inputs fails with 400 error.', async () => {
     await helpCreatePresentationRequest({
-        tenant: process.env.TENANT,
+        tenant: process.env.MATTR_TENANT,
         challengeId: uuidv4(),
         did: 'fake',
         templateId: 'fake',
@@ -162,11 +162,11 @@ test('createPresentationRequest with invalid inputs fails with 400 error.', asyn
 
 test('createPresentationRequest with valid inputs returns presentation request.', async () => {
     await helpCreatePresentationRequest({
-        tenant: process.env.TENANT,
+        tenant: process.env.MATTR_TENANT,
         challengeId: uuidv4(),
         did: process.env.VERIFIER_DID,
-        templateId: process.env.TEMPLATE_ID,
-        callbackURL: process.env.CALLBACK_URL
+        templateId: process.env.PRESENTATION_TEMPLATE_ID,
+        callbackURL: process.env.DIDAUTH_CALLBACK_URL
     })
     .trigger
     (error => {
@@ -181,11 +181,11 @@ test('createPresentationRequest with valid inputs returns presentation request.'
 
 test('createPresentationRequest with valid optional inputs returns presentation request.', async () => {
     await helpCreatePresentationRequest({
-        tenant: process.env.TENANT,
+        tenant: process.env.MATTR_TENANT,
         challengeId: uuidv4(),
         did: process.env.VERIFIER_DID,
-        templateId: process.env.TEMPLATE_ID,
-        callbackURL: process.env.CALLBACK_URL,
+        templateId: process.env.PRESENTATION_TEMPLATE_ID,
+        callbackURL: process.env.DIDAUTH_CALLBACK_URL,
         expiresTime: Math.round((new Date()).getTime()) + 600000
     })
     .trigger

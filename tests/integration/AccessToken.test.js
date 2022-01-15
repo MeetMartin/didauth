@@ -22,8 +22,8 @@ test('requestAccessToken with invalid credentials fails with error.', async () =
 
 test('requestAccessToken with valid credentials returns access token.', async () => {
     await requestAccessToken({
-        clientId: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET
+        clientId: process.env.MATTR_CLIENT_ID,
+        clientSecret: process.env.MATTR_CLIENT_SECRET
     })
     .trigger
     (error => {

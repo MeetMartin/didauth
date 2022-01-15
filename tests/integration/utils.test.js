@@ -11,17 +11,17 @@ const helpGetPresentationRequestAndDID = () =>
     compose(
         map(responses => ({request: responses[0].data?.request, didUrl: responses[1].data?.didDocument?.keyAgreement[0]?.id})),
         flatMap(token => getPresentationRequestAndDID({
-            tenant: process.env.TENANT,
+            tenant: process.env.MATTR_TENANT,
             accessToken: token,
             did: process.env.VERIFIER_DID,
             challengeId: uuidv4(),
-            templateId: process.env.TEMPLATE_ID,
-            callbackURL: process.env.CALLBACK_URL
+            templateId: process.env.PRESENTATION_TEMPLATE_ID,
+            callbackURL: process.env.DIDAUTH_CALLBACK_URL
         })),
         map(response => response.data.access_token),
         () => requestAccessToken({
-            clientId: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET
+            clientId: process.env.MATTR_CLIENT_ID,
+            clientSecret: process.env.MATTR_CLIENT_SECRET
         })
     )();
 

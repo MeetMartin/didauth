@@ -6,14 +6,14 @@ import { pushAuthentication } from '../../src/pushAuthentication';
 
 test('pushAuthentication returns 200 when triggered.', async () => {
     await pushAuthentication({
-        clientId: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
-        tenant: process.env.TENANT,
+        clientId: process.env.MATTR_CLIENT_ID,
+        clientSecret: process.env.MATTR_CLIENT_SECRET,
+        tenant: process.env.MATTR_TENANT,
         did: process.env.VERIFIER_DID,
         recipientDid: process.env.RECIPIENT_DID,
         challengeId: uuidv4(),
-        templateId: process.env.TEMPLATE_ID,
-        callbackURL: process.env.CALLBACK_URL
+        templateId: process.env.PRESENTATION_TEMPLATE_ID,
+        callbackURL: process.env.DIDAUTH_CALLBACK_URL
     })
     .trigger
     (error => {

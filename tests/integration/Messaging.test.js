@@ -16,8 +16,8 @@ const helpCreateJWS = payload =>
         })),
         map(response => response.data.access_token),
         () => requestAccessToken({
-            clientId: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET
+            clientId: process.env.MATTR_CLIENT_ID,
+            clientSecret: process.env.MATTR_CLIENT_SECRET
         })
     )();
 
@@ -32,8 +32,8 @@ const helpCreateJWE = payload =>
         })),
         map(response => response.data.access_token),
         () => requestAccessToken({
-            clientId: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET
+            clientId: process.env.MATTR_CLIENT_ID,
+            clientSecret: process.env.MATTR_CLIENT_SECRET
         })
     )();
 
@@ -47,8 +47,8 @@ const helpSendMessage = payload =>
         })),
         map(response => response.data.access_token),
         () => requestAccessToken({
-            clientId: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET
+            clientId: process.env.MATTR_CLIENT_ID,
+            clientSecret: process.env.MATTR_CLIENT_SECRET
         })
     )();
 
@@ -57,14 +57,14 @@ const helpCreateJWEAndSendMessage = () =>
         flatMap(token =>
             compose(
                 flatMap(jwe => sendMessage({
-                    tenant: process.env.TENANT,
+                    tenant: process.env.MATTR_TENANT,
                     accessToken: token,
                     recipientDid: process.env.RECIPIENT_DID,
                     message: jwe
                 })),
                 map(response => response.data.jwe),
                 token => createJWE({
-                    tenant: process.env.TENANT,
+                    tenant: process.env.MATTR_TENANT,
                     accessToken: token,
                     didUrl: process.env.VERIFIER_DID_JWE_URL,
                     recipientDids: [ process.env.RECIPIENT_DID ],
@@ -74,8 +74,8 @@ const helpCreateJWEAndSendMessage = () =>
         ),
         map(response => response.data.access_token),
         () => requestAccessToken({
-            clientId: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET
+            clientId: process.env.MATTR_CLIENT_ID,
+            clientSecret: process.env.MATTR_CLIENT_SECRET
         })
     )();
 
@@ -98,7 +98,7 @@ test('createJWS with invalid tenant fails with getaddrinfo error.', async () => 
 
 test('createJWS with invalid token fails with 401 error.', async () => {
     await createJWS({
-        tenant: process.env.TENANT,
+        tenant: process.env.MATTR_TENANT,
         accessToken: 'token',
         didUrl: 'fake',
         request: { fake: 'fake' }
@@ -115,7 +115,7 @@ test('createJWS with invalid token fails with 401 error.', async () => {
 
 test('createJWS with invalid inputs fails with 400 error.', async () => {
     await helpCreateJWS({
-        tenant: process.env.TENANT,
+        tenant: process.env.MATTR_TENANT,
         didUrl: 'fake',
         request: { fake: 'fake' }
     })
@@ -131,7 +131,7 @@ test('createJWS with invalid inputs fails with 400 error.', async () => {
 
 test('createJWS with valid inputs returns presentation request.', async () => {
     await helpCreateJWS({
-        tenant: process.env.TENANT,
+        tenant: process.env.MATTR_TENANT,
         didUrl: process.env.VERIFIER_DID_JWS_URL,
         request: { msg: 'this is a message' }
     })
@@ -166,7 +166,7 @@ test('createJWE with invalid tenant fails with getaddrinfo error.', async () => 
 
 test('createJWE with invalid token fails with 401 error.', async () => {
     await createJWE({
-        tenant: process.env.TENANT,
+        tenant: process.env.MATTR_TENANT,
         accessToken: 'token',
         didUrl: 'fake',
         recipientDids: ['fake'],
@@ -184,7 +184,7 @@ test('createJWE with invalid token fails with 401 error.', async () => {
 
 test('createJWE with invalid inputs fails with 400 error.', async () => {
     await helpCreateJWE({
-        tenant: process.env.TENANT,
+        tenant: process.env.MATTR_TENANT,
         didUrl: 'fake',
         recipientDids: ['fake'],
         request: { fake: 'fake' }
@@ -201,7 +201,7 @@ test('createJWE with invalid inputs fails with 400 error.', async () => {
 
 test('createJWE with valid inputs returns presentation request.', async () => {
     await helpCreateJWE({
-        tenant: process.env.TENANT,
+        tenant: process.env.MATTR_TENANT,
         didUrl: process.env.VERIFIER_DID_JWE_URL,
         recipientDids: [ process.env.RECIPIENT_DID ],
         request: { msg: 'this is a message' }
@@ -236,7 +236,7 @@ test('sendMessage with invalid tenant fails with getaddrinfo error.', async () =
 
 test('sendMessage with invalid token fails with 401 error.', async () => {
     await sendMessage({
-        tenant: process.env.TENANT,
+        tenant: process.env.MATTR_TENANT,
         accessToken: 'token',
         recipientDid: 'fake',
         message: { fake: 'fake' }
@@ -253,7 +253,7 @@ test('sendMessage with invalid token fails with 401 error.', async () => {
 
 test('sendMessage with invalid inputs fails with 400 error.', async () => {
     await helpSendMessage({
-        tenant: process.env.TENANT,
+        tenant: process.env.MATTR_TENANT,
         recipientDid: 'fake',
         message: { fake: 'fake' }
     })
