@@ -2,7 +2,7 @@
 
 import { v4 as uuidv4 } from 'uuid';
 
-import { pushAuthentication } from '../../src/pushAuthentication';
+import { pushAuthentication } from '../../src/pushAuthentication.js';
 
 test('pushAuthentication returns 200 when triggered.', async () => {
     await pushAuthentication({

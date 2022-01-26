@@ -1,6 +1,6 @@
 // @ts-check
 
-import { formatError, validatePayloadKey, validatePayload, getPresentationRequestAndDID } from '../../src/utils';
+import { formatError, validatePayloadKey, validatePayload, getPresentationRequestAndDID } from '../../src/utils.js';
 
 test('formatError takes MATTR error object and returns an error string.', () => {
     expect(formatError({response: {data: {message: 'Error occured', details: 'some details'}}})).toBe('[object Object]. Error occured. \'some details\'.');

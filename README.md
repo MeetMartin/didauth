@@ -16,6 +16,7 @@ didauth is a JavaScript NPM libray for building DID authentication. Library uses
 ## Get Started
 
 ### Installation
+
 To use with Node.js:
 
 ```
@@ -23,6 +24,7 @@ $ npm install --save didauth
 ```
 
 ### MATTR Platform Dependency
+
 To use the library, you will need to have an account at [MATTR](https://mattr.global/), which provides
 all the necessary plumbing to support decentralized identifiers and a digital wallet.
 
@@ -96,6 +98,7 @@ pushAuthentication(payload)
 ```
 
 ## Run Tests
+
 The library has 100 % test coverage with unit tests and integration tests.
 
 ![test-coverage](https://user-images.githubusercontent.com/11709245/141865668-f3394442-f622-4f33-8fe3-0e2609a9bf9f.jpg)
@@ -122,8 +125,19 @@ The library internally uses functional monads and therefor the output of the fun
 The library itself is written in pure JavaScript and uses Babel and Webpack to build. However, for your convinience
 Typescript typings and JSDoc are provided with the library.
 
+The node code is build using ESM with support for both import and require and optimized for three-shaking to reduce your package sizes.
+
 ## Contributors
 
 [![Contributors](https://contributors-img.firebaseapp.com/image?repo=MeetMartin/didauth)](https://github.com/MeetMartin/lambda/graphs/contributors)
 
 Made with [contributors-img](https://contributors-img.firebaseapp.com).
+
+## Changelog
+
+### 1.2.0
+
+* Library type changed to module using ESM imports/exports. Still supports commonjs require through webpack/babel build.
+* Optimizations for tree-shakeability of the library for both ESM and CJS.
+* Declaring Node support from version 12.16 (current node is 17.4.0, LTS is 16.13.2, and AWS Lambda defaults to node 14).
+* These changes were heavily tested with different configurations. However, if you encounter any issues, please report them on GitHub.

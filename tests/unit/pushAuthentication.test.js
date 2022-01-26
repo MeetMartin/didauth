@@ -1,6 +1,6 @@
 // @ts-check
 
-import { pushAuthentication, createPushRequest } from '../../src/pushAuthentication';
+import { pushAuthentication, createPushRequest } from '../../src/pushAuthentication.js';
 
 test('pushAuthentication returns AsyncEffect.', async () => {
     expect(

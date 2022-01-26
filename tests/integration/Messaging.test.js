@@ -3,8 +3,8 @@
 // @ts-ignore
 import { isJust, isString, compose, map, flatMap } from '@7urtle/lambda';
 
-import { requestAccessToken } from '../../src/effects/AccessToken';
-import { createJWS, createJWE, sendMessage } from '../../src/effects/Messaging';
+import { requestAccessToken } from '../../src/effects/AccessToken.js';
+import { createJWS, createJWE, sendMessage } from '../../src/effects/Messaging.js';
 
 const helpCreateJWS = payload =>
     compose(

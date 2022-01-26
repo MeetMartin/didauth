@@ -2,8 +2,8 @@
 
 import { deepInspect, isNothing, isNotString, Failure, Success, Either, compose, map, mergeEithers, AsyncEffect, mergeAsyncEffects } from '@7urtle/lambda';
 
-import { createPresentationRequest } from './effects/Presentation';
-import { readDID } from './effects/DID';
+import { createPresentationRequest } from './effects/Presentation.js';
+import { readDID } from './effects/DID.js';
 
 /**
 * @typedef {object} MATTRError

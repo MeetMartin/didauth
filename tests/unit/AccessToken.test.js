@@ -1,6 +1,6 @@
 // @ts-check
 
-import { requestAccessToken } from '../../src/effects/AccessToken'
+import { requestAccessToken } from '../../src/effects/AccessToken.js';
 
 test('requestAccessToken returns AsyncEffect', async () => {
     expect(await requestAccessToken({clientId: 'id', clientSecret: 'secret'}).inspect().startsWith('AsyncEffect')).toBe(true);

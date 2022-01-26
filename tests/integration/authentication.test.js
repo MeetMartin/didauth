@@ -2,7 +2,7 @@
 
 import { v4 as uuidv4 } from 'uuid';
 
-import { authentication } from '../../src/authentication';
+import { authentication } from '../../src/authentication.js';
 
 test('authentication returns JWS url when triggered.', async () => {
     await authentication({

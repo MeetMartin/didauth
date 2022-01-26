@@ -1,2 +1,2 @@
-export { authentication } from "./authentication";
-export { pushAuthentication } from "./pushAuthentication";
+export { authentication } from "./authentication.js";
+export { pushAuthentication } from "./pushAuthentication.js";

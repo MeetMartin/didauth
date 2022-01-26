@@ -1,6 +1,6 @@
 // @ts-check
 
-import { createPresentationTemplate, createPresentationRequest } from '../../src/effects/Presentation';
+import { createPresentationTemplate, createPresentationRequest } from '../../src/effects/Presentation.js';
 
 test('createPresentationTemplate returns AsyncEffect', async () => {
     expect(

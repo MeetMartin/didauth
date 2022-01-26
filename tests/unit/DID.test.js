@@ -1,6 +1,6 @@
 // @ts-check
 
-import { createDID, readDID } from '../../src/effects/DID';
+import { createDID, readDID } from '../../src/effects/DID.js';
 
 test('createDID returns AsyncEffect', async () => {
     expect(await createDID({tenant: 'tenant', accessToken: 'token'}).inspect().startsWith('AsyncEffect')).toBe(true);

@@ -2,9 +2,9 @@
 
 import { map, flatMap, compose, eitherToAsyncEffect, AsyncEffect } from '@7urtle/lambda';
 
-import { validatePayload, getPresentationRequestAndDID } from './utils';
-import { requestAccessToken } from './effects/AccessToken';
-import { createJWS } from './effects/Messaging';
+import { validatePayload, getPresentationRequestAndDID } from './utils.js';
+import { requestAccessToken } from './effects/AccessToken.js';
+import { createJWS } from './effects/Messaging.js';
 
 /**
  * @typedef {object} AuthenticationPayload

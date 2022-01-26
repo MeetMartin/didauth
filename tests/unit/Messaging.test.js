@@ -1,6 +1,6 @@
 // @ts-check
 
-import { createJWS, createJWE, sendMessage } from '../../src/effects/Messaging';
+import { createJWS, createJWE, sendMessage } from '../../src/effects/Messaging.js';
 
 test('createJWS returns AsyncEffect', async () => {
     expect(

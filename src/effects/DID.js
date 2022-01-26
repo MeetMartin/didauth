@@ -3,7 +3,7 @@
 import { isNothing, AsyncEffect } from '@7urtle/lambda';
 import axios from 'axios';
 
-import { formatError } from '../utils';
+import { formatError } from '../utils.js';
 
 /**
  * @typedef {object} CreateDIDPayload

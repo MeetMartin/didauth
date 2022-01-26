@@ -4,7 +4,7 @@ import { isNothing, AsyncEffect } from '@7urtle/lambda';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
-import { formatError } from '../utils';
+import { formatError } from '../utils.js';
 
 /**
  * @typedef {object} CreatePresentationTemplatePayload

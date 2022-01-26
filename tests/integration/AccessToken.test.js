@@ -3,7 +3,7 @@
 // @ts-ignore
 import { isJust, isString } from '@7urtle/lambda';
 
-import { requestAccessToken } from '../../src/effects/AccessToken';
+import { requestAccessToken } from '../../src/effects/AccessToken.js';
 
 test('requestAccessToken with invalid credentials fails with error.', async () => {
     await requestAccessToken({

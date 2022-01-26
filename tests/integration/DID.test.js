@@ -3,8 +3,8 @@
 // @ts-ignore
 import { isJust, isString, compose, map, flatMap } from '@7urtle/lambda';
 
-import { requestAccessToken } from '../../src/effects/AccessToken';
-import { createDID, readDID } from '../../src/effects/DID';
+import { requestAccessToken } from '../../src/effects/AccessToken.js';
+import { createDID, readDID } from '../../src/effects/DID.js';
 
 const helpCreateDID = payload =>
     compose(

@@ -1,6 +1,6 @@
 // @ts-check
 
-import { authentication, getJWS, getJWSURL } from '../../src/authentication';
+import { authentication, getJWS, getJWSURL } from '../../src/authentication.js';
 
 test('authentication returns AsyncEffect.', async () => {
     expect(

@@ -4,8 +4,8 @@
 import { compose, map, flatMap, isObject, isString, isJust } from '@7urtle/lambda';
 import { v4 as uuidv4 } from 'uuid';
 
-import { requestAccessToken } from '../../src/effects/AccessToken';
-import { getPresentationRequestAndDID } from '../../src/utils';
+import { requestAccessToken } from '../../src/effects/AccessToken.js';
+import { getPresentationRequestAndDID } from '../../src/utils.js';
 
 const helpGetPresentationRequestAndDID = () =>
     compose(

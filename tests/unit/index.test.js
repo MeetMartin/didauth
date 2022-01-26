@@ -1,6 +1,6 @@
 // @ts-check
 
-import { authentication, pushAuthentication } from '../../src/index';
+import { authentication, pushAuthentication } from '../../src/index.js';
 
 test('authentication returns AsyncEffect.', async () => {
     expect(

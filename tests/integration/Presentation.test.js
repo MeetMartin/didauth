@@ -4,8 +4,8 @@
 import { isJust, isObject, isString, compose, map, flatMap } from '@7urtle/lambda';
 import { v4 as uuidv4 } from 'uuid';
 
-import { requestAccessToken } from '../../src/effects/AccessToken';
-import { createPresentationTemplate, createPresentationRequest } from '../../src/effects/Presentation';
+import { requestAccessToken } from '../../src/effects/AccessToken.js';
+import { createPresentationTemplate, createPresentationRequest } from '../../src/effects/Presentation.js';
 
 const helpCreatePresentationTemplate = payload =>
     compose(
